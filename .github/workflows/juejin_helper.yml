@@ -30,6 +30,11 @@ jobs:
       - name: Run Project
         env:
           COOKIE: ${{ secrets.COOKIE }}
+          COOKIE1: ${{ secrets.COOKIE1 }}
+          COOKIE2: ${{ secrets.COOKIE2 }}
+          COOKIE3: ${{ secrets.COOKIE3 }}
+          COOKIE4: ${{ secrets.COOKIE4 }}
+          COOKIE5: ${{ secrets.COOKIE5 }}
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           TO: ${{ secrets.TO }}
