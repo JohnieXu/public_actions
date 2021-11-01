@@ -102,9 +102,6 @@ const sendMails = () => {
     </table>
   `
 
-  // test:
-  console.log('html\n', html)
-
   return sendMail({
     from: '掘金',
     to,
