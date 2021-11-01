@@ -33,4 +33,4 @@ jobs:
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           TO: ${{ secrets.TO }}
-        run: npm ci && node index.js "${COOKIE}" "${USER}" "${PASS}" "${TO}"
+        run: npm ci && node index.js "${USER}" "${PASS}" "${TO}" "${COOKIE}" "${COOKIE1}" "${COOKIE2}" "${COOKIE3}" "${COOKIE4}" "${COOKIE5}"
