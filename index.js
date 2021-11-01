@@ -11,7 +11,7 @@ let resultMap = new Map();
 
 const saveScore = (key, score) => {
   if (key && typeof score !== 'undefined') {
-    scoreMap.set(cookie, score)
+    scoreMap.set(key, score)
   }
 }
 
@@ -23,7 +23,7 @@ const getScore = (key, df) => {
   return v
 }
 
-const saveSuccessReuslt = (key, detail) => {
+const saveSuccessResult = (key, detail) => {
   if (key, detail) {
     resultMap.set(key, detail)
     const s = resultMap.get('_s') || []
@@ -67,7 +67,7 @@ const sendMails = () => {
       if (cookie.length > 10) {
         return `${cookie.slice(0, 5)}*****${cookie.slice(-5)}`
       }
-      return `账号${index + 0}`
+      return `账号${index + 1}`
     }
 
     const td = `
@@ -80,6 +80,15 @@ const sendMails = () => {
   }, '<tr>\n') + '\n</tr>'
 
   const html = `
+    <style>
+      th {
+        font-weight: 500;
+      }
+      td {
+        border: 1px solid #ccc;
+        min-width: 200px;
+      }
+    </style>
     <h1 style="text-align: center">自动签到通知</h1>
     <p style="text-indent: 2em">签到结果：${toalMsg}</p>
     <p style="text-indent: 2em">详细记录：</p>
@@ -93,12 +102,15 @@ const sendMails = () => {
     </table>
   `
 
+  // test:
+  console.log('html\n', html)
+
   return sendMail({
     from: '掘金',
     to,
     subject: '定时任务',
     html
-  }).catch(console.error);
+  });
 }
 
 const baseHeaders = {
@@ -183,7 +195,7 @@ function draw(cookie) {
     })
     .then((msg) => {
       console.log(msg);
-      saveSuccessReuslt(cookie, { msg, score: getScore(cookie, 0) })
+      saveSuccessResult(cookie, { msg, score: getScore(cookie, 0) })
     })
     .catch((err) => {
       saveFailReuslt(cookie, { msg: err, score: getScore(cookie, 0) })
