@@ -160,9 +160,7 @@ const sendMails = () => {
       </table>
     </div>
   `
-
-  console.log('html', html)
-
+  
   return sendMail({
     from: '掘金',
     to,
