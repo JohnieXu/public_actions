@@ -144,7 +144,7 @@ const sendMails = () => {
     <h1 style="text-align: center">自动签到通知</h1>
     <p style="text-indent: 2em">签到结果：${toalMsg}</p>
     <p style="text-indent: 2em">详细记录：</p>
-    <div style="width: 100%; padding: 0 2em;">
+    <div style="width: 100%; padding: 0 2em; box-sizing: border-box;">
       <table>
         <thead>
           <tr>
@@ -160,7 +160,7 @@ const sendMails = () => {
       </table>
     </div>
   `
-  
+
   return sendMail({
     from: '掘金',
     to,
