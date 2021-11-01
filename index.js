@@ -65,7 +65,7 @@ const sendMails = () => {
 
     const getName = () => {
       if (cookie.length > 10) {
-        return `${cookie.slice(0, 5)}*****${cookie.slice(5)}`
+        return `${cookie.slice(0, 5)}*****${cookie.slice(-5)}`
       }
       return `账号${index + 0}`
     }
@@ -143,8 +143,8 @@ const drawFn = async (headers) => {
 
 // 对某一账号进行签到
 function draw(cookie) {
-  if (!cookie) { return }
-  const headers = { ...baseHeaders, cookie }
+  if (!cookie) { return Promise.resolve(); }
+  const headers = { ...baseHeaders, cookie };
   // 签到
   return (async () => {
     // 查询今日是否已经签到
