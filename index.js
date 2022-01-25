@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const sendMail = require('./sendMail');
+const dipLucky = require('./dipLucky');
 
 const [user, pass, to, ...cookies] = process.argv.slice(2);
 process.env.user = user;
@@ -236,6 +237,11 @@ function draw(cookie) {
     saveScore(cookie, check_in.data.sum_point);
     return Promise.resolve('签到成功！');
   })()
+    .then((msg) => {
+      console.log(msg)
+      // TODO: 保存沾喜气记录
+      return dipLucky(headers)
+    })
     .then((msg) => {
       console.log(msg);
       return fetch('https://api.juejin.cn/growth_api/v1/get_cur_point', {
