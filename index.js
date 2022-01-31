@@ -216,6 +216,9 @@ function draw(cookie) {
   const headers = { ...baseHeaders, cookie };
   // 签到
   return (async () => {
+
+    let dipMsg = ''
+
     // 查询今日是否已经签到
     const today_status = await fetch('https://api.juejin.cn/growth_api/v1/get_today_status', {
       headers,
@@ -239,8 +242,11 @@ function draw(cookie) {
   })()
     .then((msg) => {
       console.log(msg)
-      // TODO: 保存沾喜气记录
-      return dipLucky(headers)
+      console.log('开始沾喜气...')
+      return dipLucky(headers).then((msg) => {
+        dipMsg = msg // 保存沾喜气结果
+        return msg
+      })
     })
     .then((msg) => {
       console.log(msg);
@@ -257,6 +263,7 @@ function draw(cookie) {
     })
     .then((msg) => {
       console.log(msg);
+      msg += dipMsg;
       saveSuccessResult(cookie, { msg, score: getScore(cookie, 0) })
     })
     .catch((err) => {
