@@ -9,6 +9,7 @@ let score = 0;
 
 let scoreMap = new Map();
 let resultMap = new Map();
+let dipMap = new Map();
 
 const saveScore = (key, score) => {
   if (key && typeof score !== 'undefined') {
@@ -18,6 +19,20 @@ const saveScore = (key, score) => {
 
 const getScore = (key, df) => {
   const v = scoreMap.get(key)
+  if (df !== undefined) {
+    return v !== undefined ? v : df
+  }
+  return v
+}
+
+const saveDip = (key, msg) => {
+  if (key && typeof msg !== 'undefined') {
+    dipMap.set(key, msg)
+  }
+}
+
+const getDip = (key, df) => {
+  const v = dipMap.get(key)
   if (df !== undefined) {
     return v !== undefined ? v : df
   }
@@ -217,8 +232,6 @@ function draw(cookie) {
   // 签到
   return (async () => {
 
-    let dipMsg = ''
-
     // 查询今日是否已经签到
     const today_status = await fetch('https://api.juejin.cn/growth_api/v1/get_today_status', {
       headers,
@@ -244,8 +257,8 @@ function draw(cookie) {
       console.log(msg)
       console.log('开始沾喜气...')
       return dipLucky(headers).then((msg) => {
-        dipMsg = msg // 保存沾喜气结果
-        return msg
+        saveDip(cookie, msg); // 保存沾喜气结果
+        return msg;
       })
     })
     .then((msg) => {
@@ -263,11 +276,12 @@ function draw(cookie) {
     })
     .then((msg) => {
       console.log(msg);
+      const dipMsg = getDip(cookie, '');
       msg += dipMsg;
-      saveSuccessResult(cookie, { msg, score: getScore(cookie, 0) })
+      saveSuccessResult(cookie, { msg, score: getScore(cookie, 0) });
     })
     .catch((err) => {
-      saveFailReuslt(cookie, { msg: err, score: getScore(cookie, 0) })
+      saveFailReuslt(cookie, { msg: err, score: getScore(cookie, 0) });
     });
 
 }
