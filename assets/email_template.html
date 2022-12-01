@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>基础交易数据</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        .table-bordered {
+            border: 1px solid #ddd;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+            background-color: transparent;
+        }
+
+        .table > tbody > tr.active > td {
+            background-color: #f5f5f5;
+        }
+
+        .table-bordered > tbody > tr > td {
+            border: 1px solid #ddd;
+        }
+
+        .table > thead > tr > th,
+        .table > tbody > tr > th,
+        .table > tfoot > tr > th,
+        .table > thead > tr > td,
+        .table > tbody > tr > td,
+        .table > tfoot > tr > td {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+
+        .section-header {
+            font-size: 24px;
+            border-left: 3px solid #555966;
+            padding: 5px;
+            margin: 10px auto;
+        }
+
+        .sub-header {
+            font-size: 16px;
+            height: 30px;
+            line-height: 30px;
+            margin: 5px;
+        }
+
+        .statistics-img {
+            width: 80%;
+            height: auto;
+            margin: auto;
+        }
+
+        .tips {
+            font-size: 12px;
+            line-height: 20px;
+            color: #787a7d;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="section-header">基础交易数据</div>
+<div class="sub-header">1.星图聚客交易数据汇总</div>
+<table class="table table-bordered">
+    <tbody>
+    <tr class="active">
+        <td>新增用户数</td>
+        <td>总用户数</td>
+        <td>下单人数</td>
+        <td>订单数</td>
+        <td>下单件数</td>
+        <td>下单金额</td>
+    </tr>
+    <tr>
+        <td>{{addPerson}}</td>
+        <td>{{totalPerson}}</td>
+        <td>{{createOrderPerson}}</td>
+        <td>{{createOrderNum}}</td>
+        <td>{{createOrderAmount}}</td>
+        <td>￥{{createOrderMoney}}</td>
+    </tr>
+    <tr class="active">
+        <td>退款金额</td>
+        <td>付款人数</td>
+        <td>付款订单数</td>
+        <td>付款件数</td>
+        <td>付款金额</td>
+        <td>客单价</td>
+    </tr>
+    <tr>
+        <td>￥{{refundOrderMoney}}</td>
+        <td>{{payPerson}}</td>
+        <td>{{payOrderNum}}</td>
+        <td>{{payOrderAmount}}</td>
+        <td>￥{{payOrderMoney}}</td>
+        <td>￥{{perCustomerTransaction}}</td>
+    </tr>
+    </tbody>
+</table>
+<div class="sub-header">2.全渠道订单汇总</div>
+<table class="table table-bordered">
+    <tbody>
+    <tr class="active">
+        <td>渠道</td>
+        <td>订单数</td>
+    </tr>
+    <tr>
+        <td>星图聚客</td>
+        <td>{{c2bOrder}}</td>
+    </tr>
+    <tr>
+        <td>工行选卡</td>
+        <td>{{icbcOrder}}</td>
+    </tr>
+    <tr>
+        <td>北京工行</td>
+        <td>{{bjIcbcOrder}}</td>
+    </tr>
+    <tr>
+        <td>山西工行</td>
+        <td>{{sxIcbcOrder}}</td>
+    </tr>
+    <tr>
+        <td>苏州工行</td>
+        <td>{{szIcbcOrder}}</td>
+    </tr>
+    <tr>
+        <td>合计</td>
+        <td>{{totalOrder}}</td>
+    </tr>
+    </tbody>
+</table>
+<div class="sub-header">3.全渠道每小时订单数（星图聚客、工行选卡、北京工行、山西工行、苏州工行）</div>
+<div>
+    <!-- <img src="cid:file"/> -->
+    <img class="statistics-img" src="{{statisticsImg}}" />
+</div>
+<div class="tips">
+    <p>说明：</p>
+    <p>1.目前全渠道包含：星图聚客、工行选卡、北京工行、山西工行、苏州工行。</p>
+    <p>2.星图聚客渠道包含：星图聚客-公众号，NFC手机刷公交，美伽汇，恒丰银行-公众号，徐州市民卡-公众号，合肥通-公众号，湖北银行-公众号，山东工行-公众号，阜新银行-公众号，指尖合肥</p>
+    <p>3.北京工行、山西工行、苏州工行目前只能统计出订单数</p>
+</div>
+</body>
+</html>
