@@ -1,5 +1,9 @@
 const fetch = require('node-fetch');
 
+/**
+ * 签到
+ * @type {import('./api').Icheckin}
+ */
 function checkin({ domain, cookie }) {
   return new Promise((resolve, reject) => {
     fetch(`https://${domain}/user/checkin`, {
