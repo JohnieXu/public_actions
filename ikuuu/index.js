@@ -8,6 +8,7 @@ process.env.domain = domain; // 主站域名
 process.env.cookie = cookie; // 登录用户的 cookie
 
 function start() {
+  console.log(`user=${user} pass=${pass} to=${emailTo} domain=${domain} cookie=${cookie}`)
   api.checkin({ domain, cookie, }).then((data) => {
     const html = `
     <p style="font-size: 16px; color: #333;">签到成功，${data.msg}</p>
