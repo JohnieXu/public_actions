@@ -34,4 +34,4 @@ jobs:
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           TO: ${{ secrets.TO }}
-        run: npm ci && node ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "\"${COOKIE}\""
+        run: npm ci && node ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${COOKIE}"
