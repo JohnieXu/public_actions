@@ -1,4 +1,4 @@
-name: ikuuu_helper
+name: Ikuuu_Helper
 
 on:
   # push:
@@ -29,8 +29,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - name: Run Project
         env:
-          DOMAIN: ${{ secrets.DOMAIN }}
-          COOKIE: ${{ secrets.COOKIE }}
+          DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
+          COOKIE: ${{ secrets.IKUUU_COOKIE }}
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           TO: ${{ secrets.TO }}
