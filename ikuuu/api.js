@@ -17,6 +17,7 @@ function checkin({ domain, cookie }) {
       method: 'POST'
     }).then(res => res.json)
       .then(res => {
+        console.log(res)
         if (res.ret === '1') {
           resolve(res.msg || JSON.stringify(res))
         } else {

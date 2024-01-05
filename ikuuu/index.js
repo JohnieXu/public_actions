@@ -18,6 +18,8 @@ function start() {
       to: emailTo,
       subject: 'ikuuu自动签到',
       html
+    }).then(() => {
+      console.log('邮件发送成功')
     }).catch(e => {
       console.error(e, '邮件发送失败');
     })
@@ -32,6 +34,8 @@ function start() {
       to: emailTo,
       subject: 'ikuuu自动签到',
       html
+    }).then(() => {
+      console.log('邮件发送成功')
     }).catch(e => {
       console.error(e, '邮件发送失败');
     })
