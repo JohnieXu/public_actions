@@ -1,7 +1,7 @@
 const sendMail = require('../sendMail');
 const api = require('./api');
 
-const [user, pass, domain, cookie, emailTo] = process.argv.slice(0,2);
+const [user, pass, emailTo, domain, cookie] = process.argv.slice(0,2);
 process.env.user = user; // 邮箱账号
 process.env.pass = pass; // 邮箱密码
 process.env.domain = domain; // 主站域名
