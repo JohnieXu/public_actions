@@ -75,8 +75,6 @@ function login({ domain, userName, passWd }) {
   })
 }
 
-login({ domain: 'ikuuu.me', userName: '281910378@qq.com', passWd: '1043111522Xzy.' })
-
 module.exports = {
   login,
   checkin
