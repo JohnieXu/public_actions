@@ -52,10 +52,16 @@ function start() {
       }).then(() => {
         console.log('[step 3] 邮件发送成功')
       }).catch(e => {
-        console.error(e, '邮件发送失败');
+        console.log('[step 3] 邮件发送失败', e);
       })
-    }).catch(sendFailMail)
-  }).catch(sendFailMail);
+    }).catch((e) => {
+      console.log('[step 2] 签到失败', e);
+      sendFailMail(e);
+    })
+  }).catch((e) => {
+    console.log('[step 1] 登录失败', e);
+    sendFailMail(e);
+  });
 }
 
 start();
