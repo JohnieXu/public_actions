@@ -50,12 +50,23 @@ function login({ domain, userName, passWd }) {
       /**
        * @type {import('node-fetch').Headers}
        */
-      const headers = res.headers;
+      // const headers = res.headers;
       // console.log(headers.get('set-cookie'))
+      // console.log('login set-cookie raw')
+      // console.log(res.headers.raw()['set-cookie'])
+      // console.log('login set-cookie raw')
+
+      // console.log('login set-cookie get')
+      // console.log(res.headers.get('set-cookie'))
+      // console.log('login set-cookie get')
       return res.json().then((body) => {
+        let cookies = res.headers.raw()['set-cookie']
+        .map(item => item.replaceAll(' path=/,', ''))
+        .map(item => item.replaceAll(' path=/', ''))
+
         return {
           body,
-          cookie: headers.get('set-cookie')
+          cookie: cookies.join(' ')
         }
       })
     })
