@@ -61,8 +61,9 @@ function login({ domain, userName, passWd }) {
       // console.log('login set-cookie get')
       return res.json().then((body) => {
         let cookies = res.headers.raw()['set-cookie']
-        .map(item => item.replaceAll(' path=/,', ''))
-        .map(item => item.replaceAll(' path=/', ''))
+        .filter(item => !!item)
+        .map(item => item.replace(' path=/,', ''))
+        .map(item => item.replace(' path=/', ''))
 
         return {
           body,
