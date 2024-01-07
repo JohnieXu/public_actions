@@ -38,7 +38,9 @@ function sendFailMail(e) {
 function start() {
   // console.log(`user=${user} pass=${pass} to=${emailTo} domain=${domain} cookie=${cookie}`)
   api.login({ domain, userName, passWd: passWord, }).then((cookie) => {
+    console.log('[step 1] 登录成功');
     api.checkin({ domain, cookie, }).then((data) => {
+      console.log('[step 2] 签到成功');
       const html = `
       <p style="font-size: 16px; color: #333;">签到成功，${data.msg}</p>
       `
@@ -48,7 +50,7 @@ function start() {
         subject: 'ikuuu自动签到',
         html
       }).then(() => {
-        console.log('邮件发送成功')
+        console.log('[step 3] 邮件发送成功')
       }).catch(e => {
         console.error(e, '邮件发送失败');
       })
