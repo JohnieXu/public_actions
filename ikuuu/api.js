@@ -27,6 +27,14 @@ function checkin({ domain, cookie }) {
   })
 }
 
+/**
+ * 登录
+ * @param {Object} param0 提交参数
+ * @param {stirng} param0.domain ikuuu 网址，例如：ikuuu.me
+ * @param {string} param0.userName 登录账号
+ * @param {string} param0.passWd 登录密码
+ * @returns {Promise<string>} 返回 cookie
+ */
 function login({ domain, userName, passWd }) {
   return new Promise((resolve, reject) => {
     // https://github.com/node-fetch/node-fetch?tab=readme-ov-file#post-with-form-parameters

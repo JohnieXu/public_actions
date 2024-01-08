@@ -42,7 +42,7 @@ function start() {
     api.checkin({ domain, cookie, }).then((data) => {
       console.log('[step 2] 签到成功');
       const html = `
-      <p style="font-size: 16px; color: #333;">签到成功，${data.msg}</p>
+      <p style="font-size: 16px; color: #333;">签到成功，${data}</p>
       `
       return sendMail({
         from: domain,
