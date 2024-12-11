@@ -2,6 +2,18 @@
 
 ![luckincoffeshop_logo](../assets/luckincoffeshop_logo.png)
 
+
+## 使用方法
+
+### 电脑微信小程序获取 accessToken
+
+抓包从下方接口得到 accessToken，**有效期 30 天**
+![](../assets/luckincoffeshop_03.jpg)
+
+### Github秘钥配置
+
+![](../assets/luckincoffeshop_02.jpg)
+
 ## API 接口
 
 ### 登录
@@ -37,6 +49,43 @@ curl -H "Host: mall-api.luckincoffeeshop.com" -H "xweb_xhr: 1" -H "locale: zh_CN
 curl -H "Host: mall-api.luckincoffeeshop.com" -H "xweb_xhr: 1" -H "locale: zh_CN" -H "authorization: 4f451a49-xxxx-xxxx-xxxx-281e6c569b5d" -H "user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 MicroMessenger/6.8.0(0x16080000) NetType/WIFI MiniProgramEnv/Mac MacWechat/WMPF MacWechat/3.8.9(0x13080911) XWEB/1227" -H "content-type: application/json" -H "accept: */*" -H "sec-fetch-site: cross-site" -H "sec-fetch-mode: cors" -H "sec-fetch-dest: empty" -H "referer: https://servicewechat.com/wxcabfbc76cf058d0b/66/page-frame.html" -H "accept-language: zh-CN,zh;q=0.9" --data-binary "{}" --compressed "https://mall-api.luckincoffeeshop.com/p/signIn/userSignIn"
 ```
 
+返回OK
+```json
+{
+	"code": "00000",
+	"msg": null,
+	"result": null,
+	"data": [{
+		"id": 2640289,
+		"completionTime": "2024-12-11 15:00:05",
+		"couponId": null,
+		"prodId": null,
+		"skuId": null,
+		"couponStatus": null,
+		"prodStatus": null,
+		"source": 22,
+		"status": 1,
+		"score": 1,
+		"numberOfDraws": null,
+		"numberOfResignings": null,
+		"pizeName": "积分",
+		"pic": null,
+		"couponType": null,
+		"type": 1,
+		"virtualGoods": null,
+		"activeId": null,
+		"claimPrizeId": null,
+		"claimPrizeInfo": null,
+		"shopCouponUrl": null,
+		"taskId": null
+	}],
+	"version": "zanmall.v231225",
+	"timestamp": null,
+	"sign": null,
+	"success": true
+}
+```
+
 返回FAIL
 ```json
 {
@@ -50,8 +99,6 @@ curl -H "Host: mall-api.luckincoffeeshop.com" -H "xweb_xhr: 1" -H "locale: zh_CN
 	"success": false
 }
 ```
-
-TODO: 签到成功之后的逻辑？
 
 ### 积分抽奖
 
@@ -524,3 +571,4 @@ curl -H "Host: mall-api.luckincoffeeshop.com" -H "xweb_xhr: 1" -H "locale: zh_CN
 ```
 
 未做接口鉴权，错误的 token 也可调通。
+
