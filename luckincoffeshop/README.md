@@ -2,6 +2,9 @@
 
 ![luckincoffeshop_logo](../assets/luckincoffeshop_logo.png)
 
+## TODO
+
+- 自动参加每日免费抽奖
 
 ## 使用方法
 
