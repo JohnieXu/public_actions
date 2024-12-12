@@ -23,8 +23,8 @@ function checkin({ domain, accessToken }) {
             .then(res => {
                 console.log(res)
                 if (res.code == '00000' && res.data && res.data[0]) {
-                    const { score, prizeName} = res.data[0]
-                    resolve(`签到获得：${score}个${prizeName}`)
+                    const { score, pizeName} = res.data[0]
+                    resolve(`签到获得：${score}个${pizeName}`)
                     resolve(res.msg || JSON.stringify(res))
                 } else {
                     reject(new Error(res ? res.msg || JSON.stringify(res) : '未知错误'))
