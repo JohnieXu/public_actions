@@ -18,6 +18,8 @@
 ![](../assets/luckincoffeshop_02.jpg)
 
 ## 逻辑
+![](../assets/luckincoffeshop_04.jpg)
+
 1. 调用活动列表接口，未授权=>提示登录失效，其他错误=>提示请求失败，否则继续
 2. 根据`appTitle === "每日签到"`且`isOrNot === 2`判断今天是否签到，已签到则不执行签到
 3. 根据`appTitle === "每日抽奖"`且`isOrNot === 2`判断今天是否抽奖，已抽奖则不执行抽奖
