@@ -1,6 +1,6 @@
 const { checkinAndLogs } = require('./api');
-import sendMail from '../sendMail';
-import * as api from './api';
+import sendMail from '../sendMail.js';
+import * as api from './api.js';
 
 const activityOptions = {
   activityId: 48,
