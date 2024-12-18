@@ -1,4 +1,4 @@
-import sendMail from '../sendMail.js';
+import sendMail from '../utils/sendMail.js';
 import * as api from './api.js';
 
 const [user, pass, emailTo, domain, userName, passWord] = process.argv.slice(2);

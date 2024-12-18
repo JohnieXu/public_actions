@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-export default async function dipLucky(headers) {
+export async function dipLucky(headers) {
   const list = await fetch(
     "https://api.juejin.cn/growth_api/v1/lottery_history/global_big",
     {

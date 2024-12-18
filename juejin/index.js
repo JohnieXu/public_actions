@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
-import sendMail from './sendMail.js';
-import dipLucky from './dipLucky.js';
+import sendMail from '../utils/sendMail.js';
+import * as api from './api.js';
 
 const [user, pass, to, ...cookies] = process.argv.slice(2);
 process.env.user = user;
@@ -238,6 +238,7 @@ function draw(cookie) {
       method: 'GET',
       credentials: 'include'
     }).then((res) => res.json());
+    console.log('今日签到状态查询结果', today_status);
   
     if (today_status.err_no !== 0) return Promise.reject('签到失败！');
     if (today_status.data) return Promise.resolve('今日已经签到！');
@@ -256,7 +257,7 @@ function draw(cookie) {
     .then((msg) => {
       console.log(msg)
       console.log('开始沾喜气...')
-      return dipLucky(headers).then((msg) => {
+      return api.dipLucky(headers).then((msg) => {
         saveDip(cookie, msg); // 保存沾喜气结果
         return msg;
       })

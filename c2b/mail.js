@@ -5,7 +5,7 @@
 import fs from 'fs'
 import path from 'path'
 import { render as tpl } from 'art-template'
-import sendMail from '../sendMail.js';
+import sendMail from '../utils/sendMail.js';
 
 const [user, pass, to] = process.argv.slice(2);
 process.env.user = user;
