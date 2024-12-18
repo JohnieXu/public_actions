@@ -119,7 +119,7 @@ curl -H "Host: mall-api.luckincoffeeshop.com" -H "xweb_xhr: 1" -H "locale: zh_CN
 curl -H "Host: mall-api.luckincoffeeshop.com" -H "xweb_xhr: 1" -H "locale: zh_CN" -H "authorization: 4f451a49-xxxx-xxxx-xxxx-281e6c569b5d" -H "user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 MicroMessenger/6.8.0(0x16080000) NetType/WIFI MiniProgramEnv/Mac MacWechat/WMPF MacWechat/3.8.9(0x13080911) XWEB/1227" -H "content-type: application/json" -H "accept: */*" -H "sec-fetch-site: cross-site" -H "sec-fetch-mode: cors" -H "sec-fetch-dest: empty" -H "referer: https://servicewechat.com/wxcabfbc76cf058d0b/66/page-frame.html" -H "accept-language: zh-CN,zh;q=0.9" --compressed "https://mall-api.luckincoffeeshop.com/p/lottery/lottery?activityId=191"
 ```
 
-> activityId=191不是来自活动列表接口返回?
+> activityId=191来自活动列表接口的page字段
 
 返回OK
 ```json
