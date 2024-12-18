@@ -1,5 +1,6 @@
 const { checkinAndLogs } = require('./api');
-const sendMail = require('../sendMail');
+import sendMail from '../sendMail';
+import * as api from './api';
 
 const activityOptions = {
   activityId: 48,
@@ -16,7 +17,7 @@ process.env.user = user;
 process.env.pass = pass;
 
 function main() {
-  checkinAndLogs(activityOptions).then((res) => {
+  api.checkinAndLogs(activityOptions).then((res) => {
     sendMails(res, true).then(() => {
       console.log('签到成功邮件发送成功')
     })

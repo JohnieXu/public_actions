@@ -1,10 +1,10 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 /**
  * 签到
  * @type {import('./api').Icheckin}
  */
-function checkin({ domain, accessToken }) {
+export function checkin({ domain, accessToken }) {
     return new Promise((resolve, reject) => {
         fetch(`https://${domain}/p/signIn/userSignIn`, {
             headers: {
@@ -36,7 +36,7 @@ function checkin({ domain, accessToken }) {
  * 抽奖
  * @type {import('./api').Ilottery}
  */
-function lottery({ domain, accessToken }) {
+export function lottery({ domain, accessToken }) {
     return new Promise((resolve, reject) => {
         fetch(`https://${domain}/p/lottery/lottery?activityId=191`, {
             headers: {
@@ -68,7 +68,7 @@ function lottery({ domain, accessToken }) {
  * 查询活动列表
  * @type {import('./api').IgetTaskList}
  */
-function getTaskList({ domain, accessToken }) {
+export function getTaskList({ domain, accessToken }) {
     return new Promise((resolve, reject) => {
         fetch(`https://${domain}/p/center/getTaskList`, {
             headers: {
@@ -93,10 +93,4 @@ function getTaskList({ domain, accessToken }) {
                 }
             }).catch(reject)
     })
-}
-
-module.exports = {
-    checkin,
-    lottery,
-    getTaskList
 }

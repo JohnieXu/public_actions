@@ -2,10 +2,10 @@
  * 根据 html 模板发送邮件
  * QQ邮箱授权码说明：https://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=1001256
  */
-const fs = require('fs');
-const path = require('path');
-const tpl = require('art-template').render;
-const sendMail = require('../sendMail');
+import fs from 'fs'
+import path from 'path'
+import { render as tpl } from 'art-template'
+import sendMail from '../sendMail.js';
 
 const [user, pass, to] = process.argv.slice(2);
 process.env.user = user;

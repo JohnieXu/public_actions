@@ -1,5 +1,5 @@
-const sendMail = require('../sendMail');
-const api = require('./api');
+import sendMail from '../sendMail';
+import * as api from './api';
 
 const [user, pass, emailTo, domain, userName, passWord] = process.argv.slice(2);
 process.env.user = user; // 邮箱账号

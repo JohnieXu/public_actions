@@ -1,6 +1,6 @@
-const fetch = require('node-fetch');
-const sendMail = require('./sendMail');
-const dipLucky = require('./dipLucky');
+import fetch from 'node-fetch';
+import sendMail from './sendMail.js';
+import dipLucky from './dipLucky.js';
 
 const [user, pass, to, ...cookies] = process.argv.slice(2);
 process.env.user = user;
@@ -291,4 +291,6 @@ Promise.all(cookies.map(draw))
         .then(() => {
           console.log('邮件发送成功！');
         })
-        .catch(console.error)
+        .catch(e => {
+          console.error('邮件发送失败！\n', e);
+        })

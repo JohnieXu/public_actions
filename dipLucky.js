@@ -1,6 +1,6 @@
-const fetch = require("node-fetch");
+import fetch from 'node-fetch';
 
-async function dipLucky(headers) {
+export default async function dipLucky(headers) {
   const list = await fetch(
     "https://api.juejin.cn/growth_api/v1/lottery_history/global_big",
     {
@@ -31,5 +31,3 @@ async function dipLucky(headers) {
   if (res.data.dip_action === 1)
     return `沾喜气成功！喜气值：${res.data.total_value}`;
 }
-
-module.exports = dipLucky;

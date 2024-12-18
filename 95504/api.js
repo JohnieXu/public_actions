@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 const baseURL = 'http://activity.95504.net';
 
@@ -6,7 +6,7 @@ const baseURL = 'http://activity.95504.net';
  * 签到
  * @returns 
  */
- function checkin({ activityId, userId, phone } = {}) {
+export function checkin({ activityId, userId, phone } = {}) {
   return new Promise((resolve, reject) => {
     console.log('开始签到')
     fetch(baseURL + '/admin-api/operation/user-signin/create', {
@@ -61,7 +61,7 @@ const baseURL = 'http://activity.95504.net';
  * 签到记录
  * @returns 
  */
-function checkinLogs({ activityId, userId, phone } = {}) {
+export function checkinLogs({ activityId, userId, phone } = {}) {
   return new Promise((resolve, reject) => {
     console.log('查询签到记录')
     fetch(baseURL + '/admin-api/operation/user-signin-log/getUserSigninLogList?' + 
@@ -104,7 +104,7 @@ function checkinLogs({ activityId, userId, phone } = {}) {
  * 签到并查询签到记录
  * @returns
  */
-function checkinAndLogs({ activityId, userId, phone } = {}) {
+export function checkinAndLogs({ activityId, userId, phone } = {}) {
   return checkin({ activityId, userId, phone }).then(function () {
     return checkinLogs({ activityId, userId, phone }).then((res) => {
       console.log('签到成功')
@@ -114,10 +114,4 @@ function checkinAndLogs({ activityId, userId, phone } = {}) {
     console.log('签到并查询签到记录失败 ', e)
     return Promise.reject(e)
   })
-}
-
-module.exports = {
-  checkin,
-  checkinLogs,
-  checkinAndLogs
 }

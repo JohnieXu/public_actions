@@ -1,10 +1,10 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 /**
  * 签到
  * @type {import('./api').Icheckin}
  */
-function checkin({ domain, cookie }) {
+export function checkin({ domain, cookie }) {
   return new Promise((resolve, reject) => {
     fetch(`https://${domain}/user/checkin`, {
       headers: {
@@ -35,7 +35,7 @@ function checkin({ domain, cookie }) {
  * @param {string} param0.passWd 登录密码
  * @returns {Promise<string>} 返回 cookie
  */
-function login({ domain, userName, passWd }) {
+export function login({ domain, userName, passWd }) {
   return new Promise((resolve, reject) => {
     // https://github.com/node-fetch/node-fetch?tab=readme-ov-file#post-with-form-parameters
     const body = new URLSearchParams();
@@ -93,9 +93,4 @@ function login({ domain, userName, passWd }) {
       })
       .catch(reject);
   })
-}
-
-module.exports = {
-  login,
-  checkin
 }

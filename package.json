@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "定时任务 自动签到 自动抽奖",
   "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "serve": "node index.js"
   },
@@ -19,7 +23,7 @@
   "homepage": "https://github.com/hccluck/public_actions#readme",
   "dependencies": {
     "art-template": "^4.13.2",
-    "node-fetch": "^2.6.1",
-    "nodemailer": "^6.6.3"
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.16"
   }
 }
