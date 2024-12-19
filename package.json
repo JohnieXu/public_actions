@@ -25,5 +25,8 @@
     "art-template": "^4.13.2",
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.16"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2"
   }
 }
