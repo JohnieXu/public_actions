@@ -2,9 +2,11 @@
 
 ![luckincoffeshop_logo](../assets/luckincoffeshop_logo.png)
 
-## TODO
+## 特性
 
-- 自动参加每日免费抽奖
+- [x] 自动进行每日签到
+- [x] 自动参加每日免费抽奖
+- [x] 签到、抽奖结果邮件通知
 
 ## 使用方法
 
