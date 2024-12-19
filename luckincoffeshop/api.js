@@ -55,8 +55,8 @@ export function lottery({ domain, accessToken }) {
             .then(res => {
                 console.log(res)
                 if (res.code == '00000' && res.data) {
-                    const { score, pizeName} = res.data
-                    resolve(`获得${score}个${pizeName}`)
+                    const { score, awardName } = res.data
+                    resolve(`获得${awardName}，抽奖前有${score}积分`)
                 } else {
                     reject(new Error(res ? res.msg || JSON.stringify(res) : '未知错误'))
                 }
