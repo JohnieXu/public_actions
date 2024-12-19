@@ -233,7 +233,7 @@ function draw(cookie) {
   return (async () => {
 
     // 查询今日是否已经签到
-    const today_status = await fetch('https://api.juejin.cn/growth_api/v1/get_today_status', {
+    const today_status = await fetch('https://api.juejin.cn/growth_api/v2/get_today_status', {
       headers,
       method: 'GET',
       credentials: 'include'
