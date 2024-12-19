@@ -8,19 +8,19 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "serve": "node index.js"
+    "start": "node juejin/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hccluck/public_actions.git"
+    "url": "git+https://github.com/JohnieXu/public_actions.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "JohnieXu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hccluck/public_actions/issues"
+    "url": "https://github.com/JohnieXu/public_actions/issues"
   },
-  "homepage": "https://github.com/hccluck/public_actions#readme",
+  "homepage": "https://github.com/JohnieXu/public_actions#readme",
   "dependencies": {
     "art-template": "^4.13.2",
     "node-fetch": "^3.3.2",
