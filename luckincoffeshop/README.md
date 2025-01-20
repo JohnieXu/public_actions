@@ -13,7 +13,7 @@
 ### 电脑微信小程序获取 accessToken
 
 抓包从下方接口得到 accessToken，**有效期 30 天**
-![](../assets/luckincoffeshop_03.jpg)
+![](../assets/luckincoffeshop_033.jpg)
 
 ### Github秘钥配置
 
