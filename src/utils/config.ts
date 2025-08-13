@@ -1,0 +1,1 @@
+export const [user, pass, emailTo, domain, userName, passWord] = process.argv.slice(2);

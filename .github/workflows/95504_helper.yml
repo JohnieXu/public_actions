@@ -18,17 +18,20 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npm run build
 
   send:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com/
-      - name: Run Project
+      - run: |
+          npm ci
+          npm run build
+          node dist/95504/index.js "${USER}" "${PASS}"
         env:
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
-        run: npm ci && node 95504/index.js "${USER}" "${PASS}"

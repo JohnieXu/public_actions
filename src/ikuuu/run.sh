@@ -1,0 +1,1 @@
+npm run build && node dist/ikuuu/index.js 281910378@qq.com 123 281910378@qq.com ikuuu.de 281910378@qq.com 456

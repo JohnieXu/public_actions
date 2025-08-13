@@ -22,3 +22,6 @@ debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+.pnpm-store/
+pnpm-debug.log

@@ -1,14 +1,15 @@
 {
   "name": "public_actions",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "定时任务 自动签到 自动抽奖",
-  "main": "index.js",
   "type": "module",
   "engines": {
     "node": ">=20.0.0"
   },
   "scripts": {
-    "start": "node juejin/index.js"
+    "build": "tsc",
+    "start": "node dist/juejin/index.js",
+    "dev": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -21,12 +22,17 @@
     "url": "https://github.com/JohnieXu/public_actions/issues"
   },
   "homepage": "https://github.com/JohnieXu/public_actions#readme",
+  "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "art-template": "^4.13.2",
     "node-fetch": "^3.3.2",
-    "nodemailer": "^6.9.16"
+    "nodemailer": "^6.9.16",
+    "xstate": "^5.20.2"
   },
   "devDependencies": {
-    "prettier": "^3.4.2"
+    "@types/node": "^20.0.0",
+    "@types/nodemailer": "^6.4.14",
+    "prettier": "^3.4.2",
+    "typescript": "^5.0.0"
   }
 }

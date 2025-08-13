@@ -17,25 +17,33 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-      - run: npm ci
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
 
   send:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com/
-      - name: Run Project
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+          node dist/juejin/index.js "${USER}" "${PASS}" "${TO}" "${COOKIE1}" "${COOKIE2}" "${COOKIE3}" "${COOKIE4}" "${COOKIE5}"
         env:
-          COOKIE: ${{ secrets.COOKIE }}
+          USER: ${{ secrets.USER }}
+          PASS: ${{ secrets.PASS }}
+          TO: ${{ secrets.TO }}
           COOKIE1: ${{ secrets.COOKIE1 }}
           COOKIE2: ${{ secrets.COOKIE2 }}
           COOKIE3: ${{ secrets.COOKIE3 }}
           COOKIE4: ${{ secrets.COOKIE4 }}
           COOKIE5: ${{ secrets.COOKIE5 }}
-          USER: ${{ secrets.USER }}
-          PASS: ${{ secrets.PASS }}
-          TO: ${{ secrets.TO }}
-        run: npm ci && node juejin/index.js "${USER}" "${PASS}" "${TO}" "${COOKIE}" "${COOKIE1}" "${COOKIE2}" "${COOKIE3}" "${COOKIE4}" "${COOKIE5}"

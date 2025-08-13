@@ -18,19 +18,22 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npm run build
 
   send:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com/
-      - name: Run Project
+      - run: |
+          npm ci
+          npm run build
+          node dist/luckincoffeshop/index.js "${USER}" "${PASS}" "${TO}" "${LUCKINCOFFESHOP_ACCESSTOKEN}"
         env:
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           TO: ${{ secrets.TO }}
           LUCKINCOFFESHOP_ACCESSTOKEN: ${{ secrets.LUCKINCOFFESHOP_ACCESSTOKEN }}
-        run: npm ci && node luckincoffeshop/index.js "${USER}" "${PASS}" "${TO}" "${LUCKINCOFFESHOP_ACCESSTOKEN}"

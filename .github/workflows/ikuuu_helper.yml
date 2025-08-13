@@ -18,21 +18,24 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: npm run build
 
   send:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com/
-      - name: Run Project
+      - run: |
+          npm ci
+          npm run build
+          node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
         env:
-          DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
-          USERNAME: ${{ secrets.IKUUU_USERNAME }}
-          PASSWORD: ${{ secrets.IKUUU_PASSWORD }}
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           TO: ${{ secrets.TO }}
-        run: npm ci && node ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
+          DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
+          USERNAME: ${{ secrets.IKUUU_USERNAME }}
+          PASSWORD: ${{ secrets.IKUUU_PASSWORD }}
