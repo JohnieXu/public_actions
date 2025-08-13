@@ -17,8 +17,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build
+      - run: npm i -g pnpm@9.15.9
+      - run: pnpm i
+      - run: pnpm run build
 
   send:
     needs: build
@@ -29,8 +30,9 @@ jobs:
         with:
           node-version: 20
       - run: |
-          npm ci
-          npm run build
+          npm i -g pnpm@9.15.9
+          pnpm i
+          pnpm run build
           node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
         env:
           USER: ${{ secrets.USER }}

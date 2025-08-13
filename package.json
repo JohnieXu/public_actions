@@ -22,7 +22,7 @@
     "url": "https://github.com/JohnieXu/public_actions/issues"
   },
   "homepage": "https://github.com/JohnieXu/public_actions#readme",
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@9.15.9",
   "dependencies": {
     "art-template": "^4.13.2",
     "node-fetch": "^3.3.2",

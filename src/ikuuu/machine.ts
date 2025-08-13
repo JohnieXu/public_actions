@@ -183,7 +183,7 @@ export const machine = setup({
   }
 })
 
-let actor: ReturnType<typeof createActor> | null = null
+let actor: ReturnType<typeof createActor<typeof machine>> | null = null
 
 export const getActor = (input: {
   domain: string,
