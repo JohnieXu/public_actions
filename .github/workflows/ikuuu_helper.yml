@@ -17,7 +17,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-      - run: npm i -g pnpm@9.15.9
+      - run: corepack enable
+      - run: corepack install
       - run: pnpm i
       - run: pnpm run build
 
@@ -30,7 +31,8 @@ jobs:
         with:
           node-version: 20
       - run: |
-          npm i -g pnpm@9.15.9
+          corepack enable
+          corepack install
           pnpm i
           pnpm run build
           node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
