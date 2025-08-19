@@ -67,7 +67,7 @@ async function main(): Promise<void> {
       passWd: passWord,
       emailTo,
     }).start();
-    const state = await waitFor(actor, (state) => state.matches("done") || state.matches("error"), { timeout: 60 * 1000 });
+    const state = await waitFor(actor, (state) => state.matches("done"), { timeout: 60 * 1000 });
     console.log(state)
   } catch (e) {
     if (e instanceof Error) {

@@ -98,7 +98,8 @@ export const machine = setup({
   },
   actors: { doLoginLogic, doCheckin, doSendEmail }
 }).createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QAoC2BDAxgCwJYDswBKAOgNwBdd0AbAYggHtCz8A3RgazBLSz0KlyVWggIdM6KswDaABgC68hYlAAHRrEq5mqkAA9EAJgBsAVhImAjAGYjAdjNyALFfsmTcmwBoQAT0QrM2cSAE57Z08bAA57GPt7aOcAX2TfPhwCYlZtWjowACcCxgKSNRopADMS1F4MTMEckRoxdkZJaXxlZT0NLU69QwRTC2s7Rxc3Dy9fAOHooxIzaLlQ52XnOTNQ6OjU9PqBbOFqehpGKAIepBA+7V0boZHLWwcnV3co2cCtkitnUJyJKhJxGMH2Kz7EAZI6kHBgTCcAgMZg8cRcHgwrJw7AIpH4VoSKQ6LqKa7qTT3fCDRDmRZGUJrGyhIw2MxWNbRb4IJJLGxbULWVyRORGPZpaGHbEkeGI5GFYqlcpVGp1fjS2X4wntYmyMmKXqUgaPWlmemM5zM1nszncqZhBz2IwA1mOQWpCX4RgQOB6LGCQ39Ek0hAAWhM3NDFkZMdjcZsUP9x3wuRogapIecRm5Rm2JAZos2Kw8plZialjU1BHTxtAQ3WFjMJnciXcZmZgrtNnsYU8ziSNhsQWiZjM5fVjSYhBrwZNPNzJG7rOb8TkQNC3OiVkXYNCHJ2jP5JgTEqTpAVJRnDzriAWFiXNhXsTX0Q3-mMx7CLjNYtcTjWY4ekAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QEsDWBXTA6ZA7ZALsgIYA2AxBAPa5g64BuVqdam69hJpCeTAxsSI0A2gAYAuuImJQAByqwuNWSAAeiAEwA2bVgAsAdgCcARk0AOQwFZNxzYYsAaEAE9Ep6wGYs17aYttQ11zC0DtAF8IlzZsPC4ycjAAJ2SqZKw5UiEAM3SAWxwMOPwiMl5GKkFhXGlpVQUlGtUNBB09IzNLGzsHZzdEL1NDLE1raytTMW0xTTExY2somOKOeLKKUiooPHqkEEblXBatXQMTUJ77Rxd3BCmfQy9tL0NNAOuF-WWQWI5+AAWYH4qDwlBorEqLCK7CwgOBoNwFQEQmQokke3kiiOJwQ2nGBle+k0QwsYgsxmmt0QFh8Xn01jepk6+m0xh+fzhQJBYJSaQyWVyBRh2HhPKRfCqqPRUkkDWxzX2rXx1kJhmJpPJlO01PuNiw-jMFmsYleNjekWiv1WXIReAABLB0Px+HBYODaPQmNDOWLEY7na7YLBkVKanU5ftDorQK0pvpTAZjIFzCaKfZNLqzFhjWJ9LT9MT7EFvlbfdz-U6XW6kql0plsgQ8slCuW7bgA9Xg6HqmjahjI1imn3cfHE-pk-4xlqM7rTF4LAb1U9PNp85YlmWbX6HXz0h7Id7WNuK7u68ke9L+7KZFGFSOlR48+PJ6mZ5pMwM2qysPN55YGULY15w5E923tPdklrfkGyFFsRX+U8O0gy9wwHW8hxxR97mfJMU2ndMPznYxjCwYZDHMGYKUsBdLStXAqAgOBVD+eVhxUbCAFodS-TjVRIgTBKErxQNhdZuDYrDY0QYk5zERMLFMYxXjGV4vAmdkt1hHdjjvdjdOkhAGUXEk2S8Yx8TZSlTB4u5Fl8YkTHmZcAm0TRRNFJDOyDeA9Kk9QaTsLAzHxZ4-DGbxbJpRMvA-MxrBIwtpktFZtK8yDJJjAKEAsIKQsi8LxmeOcwgNCdximZk10MDyOGoWhMofQzzH0MQsHU65KWUmz9C8OdWoNZSEocBkKPU0soiAA */
+  id: "ikuuu",
   context: ({ input }) => ({
     ...input,
     cookie: "",
@@ -121,7 +122,7 @@ export const machine = setup({
           }))
         },
         onError: {
-          target: "error",
+          target: "checkin error",
           actions: assign((a) => ({
             ...a.context,
             error: a.event.error as any
@@ -145,18 +146,22 @@ export const machine = setup({
           cookie: a.context.cookie,
         }),
         onDone: {
-          target: "done",
+          target: "checkin success",
           actions: assign((a) => ({
             ...a.context,
             result: a.event.output
           }))
         },
         onError: {
-          target: "error"
+          target: "checkin error",
+          actions: assign((a) => ({
+            ...a.context,
+            error: a.event.error as any
+          }))
         }
       }
     },
-    done: {
+    "checkin success": {
       invoke: {
         src: "doSendEmail",
         input: (a) => ({
@@ -164,22 +169,28 @@ export const machine = setup({
           data: a.context.result,
           domain: a.context.domain,
           emailTo: a.context.emailTo,
-        })
+        }),
+        onDone: "done",
+        onError: "done",
       },
-      type: "final"
     },
-    error: {
+    "checkin error": {
       invoke: {
         src: "doSendEmail",
+
         input: (a) => ({
           type: "error",
           data: a.context.error,
           domain: a.context.domain,
           emailTo: a.context.emailTo,
-        })
+        }),
+        onDone: "done",
+        onError: "done",
       },
+    },
+    done: {
       type: "final"
-    }
+    },
   }
 })
 
