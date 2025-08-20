@@ -30,12 +30,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-      - run: |
+      - name: build project
+        run: |
           corepack enable
           corepack install
           pnpm i
           pnpm run build
-          node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
+      - name: run script
+        run: node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
         env:
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
