@@ -39,8 +39,8 @@ jobs:
       - name: run script
         run: node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
         env:
-          USER: ${{ secrets.USER }}
-          PASS: ${{ secrets.PASS }}
+          USER: ${{ secrets.USER }} # for email auth
+          PASS: ${{ secrets.PASS }} # for email auth
           TO: ${{ secrets.TO }}
           DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
           USERNAME: ${{ secrets.IKUUU_USERNAME }}
