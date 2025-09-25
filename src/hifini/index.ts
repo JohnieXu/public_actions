@@ -3,7 +3,7 @@ import sendMail from '../utils/sendMail.js';
 import { EmailOptions } from '../types/index.js';
 
 // 定义静态变量
-const domain = 'hifini.com';
+const domain = 'hifiki.com'; // hifini.com has changed to hifiki.com
 const cookie = 'bbs_sid=qf95q4qkg12072pjevoe0eherv; bbs_token=xv35IdlO8Pac_2Bq4_2FfZsOrC4fMG9ABxozb5hrM_2B0toXnf4P1QFUcIXy5YWj1uVfciM0v0ZyxX14tMNiXfoiokrbqf_2FaZrYL1m';
 const emailTo = '281910378@qq.com';
 
@@ -20,7 +20,7 @@ async function sendFailMail(e: Error): Promise<void> {
   const emailOptions: EmailOptions = {
     from: domain,
     to: emailTo,
-    subject: 'hifini自动签到',
+    subject: 'hifiki自动签到',
     html
   };
 
