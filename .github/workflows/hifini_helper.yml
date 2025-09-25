@@ -33,7 +33,7 @@ jobs:
           pnpm i
           pnpm run build
       - name: run script
-        run: node dist/hifini/index.js "${USER}" "${PASS}" "${TO}" ${HIFINI_COOKIE}" "${HIFINI_DOMAIN}"
+        run: node dist/hifini/index.js "${USER}" "${PASS}" "${TO}" "${HIFINI_COOKIE}" "${HIFINI_DOMAIN}"
         env:
           USER: ${{ secrets.USER }} # for email auth
           PASS: ${{ secrets.PASS }} # for email auth
