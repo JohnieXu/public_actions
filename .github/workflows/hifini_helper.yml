@@ -13,8 +13,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build
+      - run: corepack enable
+      - run: corepack install
+      - run: pnpm i
+      - run: pnpm run build
 
   send:
     needs: build
@@ -24,12 +26,15 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 20
-      - run: |
-          npm ci
-          npm run build
-          node dist/hifini/index.js "${USER}" "${PASS}" "${TO}" "${HIFINI_COOKIE}"
+      - name: build project
+        run: |
+          corepack enable
+          corepack install
+          pnpm i
+          pnpm run build
+      - name: run script
+        run: node dist/hifini/index.js "${HIFINI_COOKIE}" "${TO}" "${HIFINI_DOMAIN}"
         env:
-          USER: ${{ secrets.USER }}
-          PASS: ${{ secrets.PASS }}
           TO: ${{ secrets.TO }}
+          HIFINI_DOMAIN: ${{ secrets.HIFINI_DOMAIN }} 
           HIFINI_COOKIE: ${{ secrets.HIFINI_COOKIE }} 

@@ -1,0 +1,1 @@
+npm run build && node dist/hifini/index.js <cookie> 281910378@qq.com hifiki.com
