@@ -1,58 +1,7 @@
 import { setup, createActor, fromPromise, assign } from "xstate"
 import * as api from "./api.js"
-import sendMail from "../utils/sendMail.js"
-import { EmailOptions } from "../types/index.js";
+import { makeMailSender } from "../utils/sendMail.js"
 import * as config from "../utils/config.js"
-
-
-/**
- * 发送签到失败邮件
- */
-async function sendFailMail(e: Error, domain: string, emailTo: string): Promise<void> {
-  const message = e.message;
-  const html = `
-  <p style="font-size: 16px; color: #f00;">签到失败：</p>
-  <code>${message}</code>
-  `;
-
-  const emailOptions: EmailOptions = {
-    from: domain,
-    to: emailTo,
-    subject: 'ikuuu自动签到',
-    html
-  };
-
-  try {
-    await sendMail(emailOptions);
-    console.log('邮件发送成功');
-  } catch (e) {
-    console.error(e, '邮件发送失败');
-  }
-}
-
-/**
- * 发送签到成功邮件
- */
-async function sendSuccessMail(message: string, domain: string, emailTo: string): Promise<void> {
-  const html = `
-  <p style="font-size: 16px; color: #333;">签到成功：</p>
-  <code>${message}</code>
-  `;
-
-  const emailOptions: EmailOptions = {
-    from: domain,
-    to: emailTo,
-    subject: 'ikuuu自动签到',
-    html
-  };
-
-  try {
-    await sendMail(emailOptions);
-    console.log('邮件发送成功');
-  } catch (e) {
-    console.error(e, '邮件发送失败');
-  }
-}
 
 const doLoginLogic = fromPromise<{ cookie: string }, {domain: string, userName: string, passWd: string }>((a) => api.login({
   domain: a.input.domain,
@@ -65,7 +14,13 @@ const doCheckin = fromPromise<string, {domain: string, cookie: string }>((a) => 
   cookie: a.input.cookie,
 }))
 
-const doSendEmail = fromPromise<any, { type: "success" | "error", domain: string, emailTo: string, data: any }>(({ input }) => input.type === "error" ? sendFailMail(input.data, input.domain, input.emailTo) : sendSuccessMail(input.data, input.domain, input.emailTo))
+const doSendEmail = fromPromise<any, { type: "success" | "error", domain: string, emailTo: string, data: any }>(({ input }) => {
+  const mailSender = makeMailSender(input.domain, input.emailTo, "ikuuu自动签到")
+  if (input.type === "error") {
+    return mailSender.sendFail(input.data)
+  }
+  return mailSender.sendSuccess(input.data)
+})
 
 export const machine = setup({
   types: {
