@@ -37,11 +37,11 @@ export function checkin({ domain, cookie }: CheckinParams): Promise<string> {
     })
     .then(res => res.text())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       if (res.includes('成功签到')) {
         resolve(res);
       } else {
-        reject(new Error(res || '未知错误'));
+        reject(new Error(res?.slice(0, 200) || '未知错误'));
       }
     })
     .catch(reject);

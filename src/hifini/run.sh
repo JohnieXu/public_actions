@@ -1,1 +1,1 @@
-npm run build && node dist/hifini/index.js <cookie> 281910378@qq.com hifiki.com
+npm run build && node dist/hifini/index.js 281910378@qq.com 123 281910378@qq.com <cookie> hifiki.com

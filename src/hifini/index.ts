@@ -1,6 +1,6 @@
-import { checkin } from './api.js';
-import sendMail from '../utils/sendMail.js';
-import { EmailOptions } from '../types/index.js';
+import { makeMailSender } from '../utils/sendMail.js';
+import { getActor } from './machine.js';
+import { waitFor } from 'xstate';
 
 // 定义静态变量 测试用
 // const domain = 'hifiki.com'; // hifini.com has changed to hifiki.com
@@ -14,66 +14,24 @@ process.env.cookie = cookie
 process.env.emailTo = emailTo
 process.env.domain = domain
 
-/**
- * 发送签到失败邮件
- */
-async function sendFailMail(e: Error): Promise<void> {
-  const message = e.message;
-  const html = `
-  <p style="font-size: 16px; color: #f00;">签到失败：</p>
-  <code>${message}</code>
-  `;
-
-  const emailOptions: EmailOptions = {
-    from: domain,
-    to: emailTo,
-    subject: 'hifiki自动签到',
-    html
-  };
-
-  try {
-    await sendMail(emailOptions);
-    console.log('邮件发送成功');
-  } catch (e) {
-    console.error(e, '邮件发送失败');
-  }
-}
-
-/**
- * 发送签到成功邮件
- */
-async function sendSuccessMail(message: string): Promise<void> {
-  const html = `
-  <p style="font-size: 16px; color: #333;">签到成功：</p>
-  <code>${message}</code>
-  `;
-
-  const emailOptions: EmailOptions = {
-    from: domain,
-    to: emailTo,
-    subject: 'hifini自动签到',
-    html
-  };
-
-  try {
-    await sendMail(emailOptions);
-    console.log('邮件发送成功');
-  } catch (e) {
-    console.error(e, '邮件发送失败');
-  }
-}
+const mailSender = makeMailSender(domain, emailTo, 'hifiki自动签到');
 
 async function main(): Promise<void> {
   try {
-    const result = await checkin({ domain, cookie });
-    await sendSuccessMail(result);
+    const actor = getActor({
+      domain,
+      cookie,
+      emailTo,
+    }).start();
+    const state = await waitFor(actor, (state) => state.matches("done"), { timeout: 60 * 1000 });
+    console.log(state)
   } catch (e) {
     if (e instanceof Error) {
-      await sendFailMail(e);
+      await mailSender.sendFail(e.message);
     } else {
-      await sendFailMail(new Error('未知错误'));
+      await mailSender.sendFail("未知错误");
     }
   }
 }
 
-main().catch(console.error); 
+await main().catch(console.error); 
