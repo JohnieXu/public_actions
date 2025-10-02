@@ -61,12 +61,13 @@ async function sendSuccessMail(message: string): Promise<void> {
 
 async function main(): Promise<void> {
   try {
-    await runMachine(machine, {
+    const actor = await runMachine(machine, {
       domain,
       userName,
       passWd: passWord,
       emailTo,
     })
+    console.log('runMachine Done\n', actor.getSnapshot())
   } catch (e) {
     if (e instanceof Error) {
       await sendFailMail(e);

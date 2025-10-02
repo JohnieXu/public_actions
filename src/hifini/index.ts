@@ -1,6 +1,6 @@
+import { runMachine } from '../utils/machine.js';
 import { makeMailSender } from '../utils/sendMail.js';
-import { getActor } from './machine.js';
-import { waitFor } from 'xstate';
+import { machine } from './machine.js';
 
 // 定义静态变量 测试用
 // const domain = 'hifiki.com'; // hifini.com has changed to hifiki.com
@@ -18,13 +18,12 @@ const mailSender = makeMailSender(domain, emailTo, 'hifiki自动签到');
 
 async function main(): Promise<void> {
   try {
-    const actor = getActor({
+    const actor = await runMachine(machine, {
       domain,
       cookie,
       emailTo,
-    }).start();
-    const state = await waitFor(actor, (state) => state.matches("done"), { timeout: 60 * 1000 });
-    console.log(state)
+    })
+    console.log('runMachine Done\n', actor.getSnapshot())
   } catch (e) {
     if (e instanceof Error) {
       await mailSender.sendFail(e.message);

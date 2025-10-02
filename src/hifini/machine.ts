@@ -1,4 +1,4 @@
-import { setup, createActor, fromPromise, assign } from "xstate"
+import { setup, fromPromise, assign } from "xstate"
 import * as api from "./api.js"
 import { makeMailSender } from "../utils/sendMail.js"
 import * as config from "../utils/config.js"
@@ -122,16 +122,3 @@ export const machine = setup({
     },
   }
 })
-
-let actor: ReturnType<typeof createActor<typeof machine>> | null = null
-
-export const getActor = (input: {
-  domain: string,
-  cookie: string,
-  emailTo: string,
-}) => {
-  if (actor === null) {
-    actor = createActor(machine, { input })
-  }
-  return actor
-}
