@@ -193,17 +193,3 @@ export const machine = setup({
     },
   }
 })
-
-let actor: ReturnType<typeof createActor<typeof machine>> | null = null
-
-export const getActor = (input: {
-  domain: string,
-  userName: string,
-  passWd: string,
-  emailTo: string,
-}) => {
-  if (actor === null) {
-    actor = createActor(machine, { input })
-  }
-  return actor
-}

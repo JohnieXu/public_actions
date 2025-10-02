@@ -1,7 +1,7 @@
 import sendMail from '../utils/sendMail.js';
 import { EmailOptions } from '../types/index.js';
-import { getActor } from './machine.js';
-import { waitFor } from 'xstate';
+import { runMachine } from '../utils/machine.js';
+import { machine } from './machine.js';
 
 const [user, pass, emailTo, domain, userName, passWord] = process.argv.slice(2);
 process.env.user = user; // 邮箱账号
@@ -61,14 +61,12 @@ async function sendSuccessMail(message: string): Promise<void> {
 
 async function main(): Promise<void> {
   try {
-    const actor = getActor({
+    await runMachine(machine, {
       domain,
       userName,
       passWd: passWord,
       emailTo,
-    }).start();
-    const state = await waitFor(actor, (state) => state.matches("done"), { timeout: 60 * 1000 });
-    console.log(state)
+    })
   } catch (e) {
     if (e instanceof Error) {
       await sendFailMail(e);
@@ -78,4 +76,4 @@ async function main(): Promise<void> {
   }
 }
 
-await main().catch(console.error); 
+await main().catch(console.error);
