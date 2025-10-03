@@ -16,10 +16,15 @@ const doCheckin = fromPromise<string, {domain: string, cookie: string }>((a) => 
 
 const doSendEmail = fromPromise<any, { type: "success" | "error", domain: string, emailTo: string, data: any }>(({ input }) => {
   const mailSender = makeMailSender(input.domain, input.emailTo, "ikuuu自动签到")
-  if (input.type === "error") {
-    return mailSender.sendFail(input.data)
+  const toString = (data: any) => {
+    if (typeof data === 'string') return data
+    if (data instanceof Error) return data.message
+    return JSON.stringify(data, null, 2)
   }
-  return mailSender.sendSuccess(input.data)
+  if (input.type === "error") {
+    return mailSender.sendFail(toString(input.data))
+  }
+  return mailSender.sendSuccess(toString(input.data))
 })
 
 export const machine = setup({

@@ -25,3 +25,4 @@ debug.log*
 
 .pnpm-store/
 pnpm-debug.log
+.env.local

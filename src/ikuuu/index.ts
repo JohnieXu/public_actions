@@ -1,5 +1,4 @@
-import sendMail from '../utils/sendMail.js';
-import { EmailOptions } from '../types/index.js';
+import { makeMailSender } from '../utils/sendMail.js';
 import { runMachine } from '../utils/machine.js';
 import { machine } from './machine.js';
 
@@ -10,54 +9,7 @@ process.env.domain = domain; // 主站域名
 process.env.userName = userName; // 登录账号
 process.env.passWord = passWord; // 登录密码
 
-/**
- * 发送签到失败邮件
- */
-async function sendFailMail(e: Error): Promise<void> {
-  const message = e.message;
-  const html = `
-  <p style="font-size: 16px; color: #f00;">签到失败：</p>
-  <code>${message}</code>
-  `;
-
-  const emailOptions: EmailOptions = {
-    from: domain,
-    to: emailTo,
-    subject: 'ikuuu自动签到',
-    html
-  };
-
-  try {
-    await sendMail(emailOptions);
-    console.log('邮件发送成功');
-  } catch (e) {
-    console.error(e, '邮件发送失败');
-  }
-}
-
-/**
- * 发送签到成功邮件
- */
-async function sendSuccessMail(message: string): Promise<void> {
-  const html = `
-  <p style="font-size: 16px; color: #333;">签到成功：</p>
-  <code>${message}</code>
-  `;
-
-  const emailOptions: EmailOptions = {
-    from: domain,
-    to: emailTo,
-    subject: 'ikuuu自动签到',
-    html
-  };
-
-  try {
-    await sendMail(emailOptions);
-    console.log('邮件发送成功');
-  } catch (e) {
-    console.error(e, '邮件发送失败');
-  }
-}
+const mailSender = makeMailSender(domain, emailTo, 'ikuuu自动签到');
 
 async function main(): Promise<void> {
   try {
@@ -70,9 +22,9 @@ async function main(): Promise<void> {
     console.log('runMachine Done\n', actor.getSnapshot())
   } catch (e) {
     if (e instanceof Error) {
-      await sendFailMail(e);
+      await mailSender.sendFail(e.message);
     } else {
-      await sendFailMail(new Error('未知错误'));
+      await mailSender.sendFail('未知错误');
     }
   }
 }
