@@ -1,4 +1,4 @@
-import { setup, createActor, fromPromise, assign } from "xstate"
+import { setup, fromPromise, assign } from "xstate"
 import * as api from "./api.js"
 import { makeMailSender } from "../utils/sendMail.js"
 import * as config from "../utils/config.js"
