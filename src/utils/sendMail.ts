@@ -64,7 +64,7 @@ export class MailSender {
       status: success ? '执行成功' : '执行失败',
       description: this.subject,
       jsonData: message,
-      createdAt: new Date().toLocaleString(),
+      createdAt: new Date().toLocaleString('zh-CN', {timeZone: '+08:00'}),
     }
   }
 }
