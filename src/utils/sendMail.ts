@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import template from 'art-template';
 import fs from 'node:fs';
-import { EmailOptions } from '../types/index.js';
+import { EmailOptions } from '@@types/index.js';
 import path from 'node:path';
 import { cwd } from 'node:process';
 

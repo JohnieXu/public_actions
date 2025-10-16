@@ -1,5 +1,5 @@
 import { fromPromise } from "xstate";
-import { makeMailSender } from "../../utils/sendMail.js";
+import { makeMailSender } from "@@utils/sendMail.js";
 
 /**
  * Send email by invoking xstate actor

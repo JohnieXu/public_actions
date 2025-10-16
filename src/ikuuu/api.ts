@@ -6,7 +6,7 @@ import {
   LoginResult,
   ApiResponse,
   BaseHeaders 
-} from '../types/ikuuu.js';
+} from '@@types/ikuuu.js';
 
 /**
  * 登录

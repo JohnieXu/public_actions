@@ -1,6 +1,6 @@
 import { setup, fromPromise, assign } from "xstate"
 import * as api from "./api.js"
-import { emailActor } from "../common/actors/email.js"
+import { emailActor } from "@@common/actors/email.js"
 import * as config from "@@utils/config.js"
 
 const doLoginLogic = fromPromise<{ cookie: string }, {domain: string, userName: string, passWd: string }>((a) => api.login({
