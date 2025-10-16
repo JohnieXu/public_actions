@@ -1,6 +1,6 @@
 import { setup, fromPromise, assign } from "xstate"
 import * as api from "./api.js"
-import { makeMailSender } from "../utils/sendMail.js"
+import { emailActor } from "../common/actors/email.js"
 import * as config from "../utils/config.js"
 
 const doLoginLogic = fromPromise<{ cookie: string }, {domain: string, userName: string, passWd: string }>((a) => api.login({
@@ -14,18 +14,7 @@ const doCheckin = fromPromise<string, {domain: string, cookie: string }>((a) => 
   cookie: a.input.cookie,
 }))
 
-const doSendEmail = fromPromise<any, { type: "success" | "error", domain: string, emailTo: string, data: any }>(({ input }) => {
-  const mailSender = makeMailSender(input.domain, input.emailTo, "ikuuu自动签到")
-  const toString = (data: any) => {
-    if (typeof data === 'string') return data
-    if (data instanceof Error) return data.message
-    return JSON.stringify(data, null, 2)
-  }
-  if (input.type === "error") {
-    return mailSender.sendFail(toString(input.data))
-  }
-  return mailSender.sendSuccess(toString(input.data))
-})
+const doSendEmail = emailActor("ikuuu自动签到")
 
 export const machine = setup({
   types: {
