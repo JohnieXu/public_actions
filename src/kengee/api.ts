@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { CheckinParams, BaseHeaders, ApiResponse } from '../types/kengee.js';
+import { CheckinParams, BaseHeaders, ApiResponse } from '@@types/kengee.js';
 
 /**
  * 签到

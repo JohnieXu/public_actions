@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { TaskListResponse } from '../types/luckincoffeshop.js';
+import { TaskListResponse } from '@@types/luckincoffeshop.js';
 
 interface GetTaskListParams {
   domain: string;

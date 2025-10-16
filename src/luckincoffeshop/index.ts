@@ -1,6 +1,6 @@
-import sendMail from '../utils/sendMail.js';
+import sendMail from '@@utils/sendMail.js';
 import * as api from './api.js';
-import { EmailOptions } from '../types/index.js';
+import { EmailOptions } from '@@types/index.js';
 
 const [user, pass, emailTo, accessToken] = process.argv.slice(2);
 const domain = 'mall-api.luckincoffeeshop.com'; // 主站域名

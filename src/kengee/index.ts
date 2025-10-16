@@ -1,6 +1,6 @@
 import { checkin } from './api.js';
-import sendMail from '../utils/sendMail.js';
-import { EmailOptions } from '../types/index.js';
+import sendMail from '@@utils/sendMail.js';
+import { EmailOptions } from '@@types/index.js';
 
 const [user, pass, emailTo, cookie, token] = process.argv.slice(2);
 const domain = '67766.activity-12.m.duiba.com.cn';

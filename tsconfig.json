@@ -11,7 +11,8 @@
     "declaration": true,
     "paths": {
       "@@utils/*": ["./src/utils/*"],
-      "@@types/*": ["./src/types/*"]
+      "@@types/*": ["./src/types/*"],
+      "@@common/*": ["./src/common/*"]
     }
   },
   "include": ["src/**/*"],

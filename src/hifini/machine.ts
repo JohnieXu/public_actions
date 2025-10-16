@@ -1,7 +1,7 @@
 import { setup, fromPromise, assign } from "xstate"
 import * as api from "./api.js"
-import { emailActor } from "../common/actors/email.js"
-import * as config from "../utils/config.js"
+import { emailActor } from "@@common/actors/email.js"
+import * as config from "@@utils/config.js"
 
 const doCheckin = fromPromise<string, {domain: string, cookie: string }>((a) => api.checkin({
   domain: a.input.domain,
