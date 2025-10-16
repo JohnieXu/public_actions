@@ -1,6 +1,6 @@
-import sendMail from '../utils/sendMail.js';
+import sendMail from '@@utils/sendMail.js';
 import * as api from './api.js';
-import { CheckinResult } from '../types/index.js';
+import { CheckinResult } from '@@types/index.js';
 
 const [user, pass, to, ...cookies] = process.argv.slice(2);
 process.env.user = user;

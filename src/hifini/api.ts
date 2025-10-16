@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { CheckinParams, BaseHeaders } from '../types/hifini.js';
+import { CheckinParams, BaseHeaders } from '@@types/hifini.js';
 
 /**
  * 签到

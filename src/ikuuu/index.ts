@@ -1,5 +1,5 @@
-import { makeMailSender } from '../utils/sendMail.js';
-import { runMachine } from '../utils/machine.js';
+import { makeMailSender } from '@@utils/sendMail.js';
+import { runMachine } from '@@utils/machine.js';
 import { machine } from './machine.js';
 
 const [user, pass, emailTo, domain, userName, passWord] = process.argv.slice(2);

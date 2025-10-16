@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { ApiResponse } from '../types/index.js';
+import { ApiResponse } from '@@types/index.js';
 
 interface BaseHeaders {
   cookie: string;

@@ -1,5 +1,5 @@
-import { runMachine } from '../utils/machine.js';
-import { makeMailSender } from '../utils/sendMail.js';
+import { runMachine } from '@@utils/machine.js';
+import { makeMailSender } from '@@utils/sendMail.js';
 import { machine } from './machine.js';
 
 // 定义静态变量 测试用
