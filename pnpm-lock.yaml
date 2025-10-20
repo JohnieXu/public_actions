@@ -11,6 +11,9 @@ importers:
       art-template:
         specifier: ^4.13.2
         version: 4.13.2
+      commander:
+        specifier: ^14.0.1
+        version: 14.0.1
       node-fetch:
         specifier: ^3.3.2
         version: 3.3.2
@@ -92,6 +95,10 @@ packages:
   clean-css@4.2.4:
     resolution: {integrity: sha512-EJUDT7nDVFDvaQgAo2G/PJvxmp1o/c6iXLbswsBbUFXi1Nr+AjA2cKmfbKDMjMvzEe75g3P6JkaDDAKk96A85A==}
     engines: {node: '>= 4.0'}
+
+  commander@14.0.1:
+    resolution: {integrity: sha512-2JkV3gUZUVrbNA+1sjBOYLsMZ5cEEl8GTFP2a4AVz5hvasAMCQ1D2l2le/cX+pV4N6ZU17zjUahLpIXRrnWL8A==}
+    engines: {node: '>=20'}
 
   commander@2.17.1:
     resolution: {integrity: sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==}
@@ -420,6 +427,8 @@ snapshots:
   clean-css@4.2.4:
     dependencies:
       source-map: 0.6.1
+
+  commander@14.0.1: {}
 
   commander@2.17.1: {}
 

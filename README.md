@@ -52,3 +52,26 @@
 **8. 您使用或者复制了本仓库和本人制作的任何脚本，则视为 `已接受` 此声明，请仔细阅读，谢谢！**
 
 **9. 本仓库脚本和打包的插件仅用于学习和测试，也请在完成之前，仔细阅读特别声明，完成后，删除脚本和插件，谢谢！**
+
+## run script
+
+`puba` is custom bin build in `bin` folder.
+
+sumarry:
+
+npx puba run <script> <args...>
+
+args:
+
+- common args
+--email-user: <USER> email account, required
+--email-pass: <PASS> email password, required
+--email-to: <TO> email receiver, required
+- custom args
+--domain: <DOMAIN> juejin domain
+--username: <USERNAME> juejin username
+--password: <PASSWORD> juejin password
+
+```bash
+npx puba run juejin <USER> <PASS> <TO> <DOMAIN> <USERNAME> <PASSWORD>
+```
