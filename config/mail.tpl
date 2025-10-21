@@ -80,6 +80,9 @@
             height: 16px;
             vertical-align: middle;
             display: inline-block;
+            font-size: 16px;
+            max-width: 100%;
+            overflow: hidden;
         }
     </style>
 </head>
