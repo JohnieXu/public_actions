@@ -79,6 +79,7 @@
             width: 16px;
             height: 16px;
             vertical-align: middle;
+            display: inline-block;
         }
     </style>
 </head>
