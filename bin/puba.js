@@ -75,7 +75,7 @@ function validateCommonConfig(config) {
 function getActionHelp(actionName) {
   const actionHelpMap = {
     juejin: `\nJuejin specific options:\n  --domain: <DOMAIN> juejin domain\n  --username: <USERNAME> juejin username\n  --password: <PASSWORD> juejin password`,
-    hifini: `\nHifini specific options:\n  --username: <USERNAME> hifini username\n  --password: <PASSWORD> hifini password`,
+    hifini: `\nHifini specific options:\n  --domain: <DOMAIN> hifini domain\n  --cookie: <COOKIE> hifini cookie`,
     ikuuu: `\nIkuuu specific options:\n  --username: <USERNAME> ikuuu username\n  --password: <PASSWORD> ikuuu password`,
     kengee: `\nKengee specific options:\n  --username: <USERNAME> kengee username\n  --password: <PASSWORD> kengee password`,
     luckincoffeshop: `\nLuckin Coffee Shop specific options:\n  --phone: <PHONE> phone number\n  --password: <PASSWORD> account password`
@@ -110,7 +110,7 @@ function getActionDescription(actionName) {
 function getActionOptions(actionName) {
   const optionsMap = {
     juejin: ['--domain', '--username', '--password'],
-    hifini: ['--username', '--password'],
+    hifini: ['--domain', '--cookie'],
     ikuuu: ['--username', '--password'],
     kengee: ['--username', '--password'],
     luckincoffeshop: ['--phone', '--password']
@@ -131,6 +131,7 @@ async function main() {
     .option('--email-pass <PASS>', 'email password, required')
     .option('--email-to <TO>', 'email receiver, required')
     .allowUnknownOption(true)
+    .allowExcessArguments(true)
     .action(async (name, options, command) => {
       console.log(`Running action: ${name}`);
       try {
@@ -142,24 +143,40 @@ async function main() {
           process.exit(1);
         }
 
+        // 解析未知选项并添加到配置中
+        const unknownOptions = (command.args || []).slice(1);
+        const parsedUnknownOptions = {};
+        
+        if (unknownOptions.length > 0) {
+          // 解析 --key value 格式的未知选项
+          for (let i = 0; i < unknownOptions.length; i++) {
+            const arg = unknownOptions[i];
+            if (arg.startsWith('--')) {
+              const key = arg.substring(2);
+              // 如果下一个参数不是以 -- 开头，则作为当前选项的值
+              if (i + 1 < unknownOptions.length && !unknownOptions[i + 1].startsWith('--')) {
+                parsedUnknownOptions[key] = unknownOptions[i + 1];
+                i++;
+              } else {
+                parsedUnknownOptions[key] = true; // 对于没有值的选项，设置为true
+              }
+            }
+          }
+        }
+
         const config = {
           ...options,
-          ...(process.env.PUBA_CONFIG ? JSON.parse(process.env.PUBA_CONFIG) : {})
+          ...(process.env.PUBA_CONFIG ? JSON.parse(process.env.PUBA_CONFIG) : {}),
+          ...parsedUnknownOptions,
         };
 
         mountConfigToEnv(config);
 
-        const unknownOptions = command.args[1] || [];
-        if (unknownOptions.length > 0) {
-          console.log('Unknown options detected:', unknownOptions.join(' '));
-        }
 
         // Import and execute the action module
         const module = await import(`../dist/${name}/index.js`);
         if (module.default && typeof module.default === 'function') {
           await module.default(config);
-        } else {
-          throw new Error(`Module ${name} does not export a default function`);
         }
         console.log(`Running action: ${name} done`);
       } catch (error) {

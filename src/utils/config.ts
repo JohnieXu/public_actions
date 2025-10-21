@@ -5,8 +5,9 @@
  * @returns {any} 配置值
  */
 export function getConfig<T>(key: string, defaultValue?: string): string {
-  // 尝试从process.env中获取（PUBA_前缀的大写下划线格式）
-  const envKey = `PUBA_${key.toUpperCase().replace(/([A-Z])/g, '_$1')}`;
+  // 先将驼峰命名转换为带下划线的大写格式，例如 emailUser -> EMAIL_USER
+  const snakeCaseKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase();
+  const envKey = `PUBA_${snakeCaseKey}`;
   if (process.env[envKey]) {
     return process.env[envKey];
   }
@@ -54,7 +55,9 @@ export function getAllConfig() {
 export function mountConfigToEnv(config: Record<string, any>): void {
   for (const [key, value] of Object.entries(config)) {
     if (value) {
-      const envKey = `PUBA_${key.toUpperCase().replace(/([A-Z])/g, '_$1')}`;
+      // 先将驼峰命名转换为带下划线的大写格式，例如 emailUser -> EMAIL_USER
+      const snakeCaseKey = key.replace(/([a-z])([A-Z])/g, '$1_$2').toUpperCase();
+      const envKey = `PUBA_${snakeCaseKey}`;
       process.env[envKey] = value;
     }
   }
