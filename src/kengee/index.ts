@@ -1,12 +1,12 @@
 import { checkin } from './api.js';
 import sendMail from '@@utils/sendMail.js';
 import { EmailOptions } from '@@types/index.js';
+import config from '@@utils/config.js';
 
-const [user, pass, emailTo, cookie, token] = process.argv.slice(2);
 const domain = '67766.activity-12.m.duiba.com.cn';
-
-process.env.user = user;
-process.env.pass = pass;
+const emailConfig = config.email();
+const cookie = config.get('cookie');
+const token = config.get('token');
 
 /**
  * 发送签到失败邮件
@@ -19,8 +19,10 @@ async function sendFailMail(e: Error): Promise<void> {
   `;
 
   const emailOptions: EmailOptions = {
+    user: emailConfig.user,
+    pass: emailConfig.pass,
     from: domain,
-    to: emailTo,
+    to: emailConfig.to,
     subject: '仟吉每日签到',
     html
   };
@@ -43,8 +45,10 @@ async function sendSuccessMail(message: string): Promise<void> {
   `;
 
   const emailOptions: EmailOptions = {
+    user: emailConfig.user,
+    pass: emailConfig.pass,
     from: domain,
-    to: emailTo,
+    to: emailConfig.to,
     subject: '仟吉每日签到',
     html
   };

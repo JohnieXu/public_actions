@@ -37,7 +37,8 @@ jobs:
           pnpm i
           pnpm run build
       - name: run script
-        run: node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
+        run: npx puba run ikuuu --email-user "${USER}" --email-pass "${PASS}" --email-to "${TO}" --domain "${DOMAIN}" --username "${USERNAME}" --password "${PASSWORD}"
+        #run: node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
         env:
           USER: ${{ secrets.USER }} # for email auth
           PASS: ${{ secrets.PASS }} # for email auth

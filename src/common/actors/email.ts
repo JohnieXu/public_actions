@@ -1,5 +1,8 @@
 import { fromPromise } from "xstate";
 import { makeMailSender } from "@@utils/sendMail.js";
+import config from "@@utils/config.js"
+
+const emailConfig = config.email();
 
 /**
  * Send email by invoking xstate actor
@@ -7,7 +10,7 @@ import { makeMailSender } from "@@utils/sendMail.js";
  * @returns 
  */
 export const emailActor = (subject: string) => fromPromise<any, { type: "success" | "error", domain: string, emailTo: string, data: any }>(({ input }) => {
-  const mailSender = makeMailSender(input.domain, input.emailTo, subject)
+  const mailSender = makeMailSender(emailConfig.user, emailConfig.pass, input.domain, input.emailTo, subject)
   const toString = (data: any) => {
     if (typeof data === 'string') return data
     if (data instanceof Error) return data.message

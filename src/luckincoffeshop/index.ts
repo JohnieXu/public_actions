@@ -1,13 +1,12 @@
 import sendMail from '@@utils/sendMail.js';
 import * as api from './api.js';
 import { EmailOptions } from '@@types/index.js';
+import config from '@@utils/config.js';
 
-const [user, pass, emailTo, accessToken] = process.argv.slice(2);
 const domain = 'mall-api.luckincoffeeshop.com'; // 主站域名
 
-process.env.user = user; // 邮箱账号
-process.env.pass = pass; // 邮箱密码
-process.env.accessToken = accessToken; // 用户 token
+const emailConfig = config.email();
+const accessToken = config.get('accessToken');
 
 /**
  * 发送签到失败邮件
@@ -21,8 +20,10 @@ async function sendFailMail(e: Error): Promise<void> {
   `;
   
   const emailOptions: EmailOptions = {
+    user: emailConfig.user,
+    pass: emailConfig.pass,
     from: domain,
-    to: emailTo,
+    to: emailConfig.to,
     subject: '瑞幸即享自动签到',
     html
   };
@@ -34,5 +35,3 @@ async function sendFailMail(e: Error): Promise<void> {
     console.error(e, '邮件发送失败');
   }
 }
-
-// 其他业务逻辑... 

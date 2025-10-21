@@ -1,15 +1,14 @@
 import { makeMailSender } from '@@utils/sendMail.js';
 import { runMachine } from '@@utils/machine.js';
 import { machine } from './machine.js';
+import config from '@@utils/config.js';
 
-const [user, pass, emailTo, domain, userName, passWord] = process.argv.slice(2);
-process.env.user = user; // 邮箱账号
-process.env.pass = pass; // 邮箱密码
-process.env.domain = domain; // 主站域名
-process.env.userName = userName; // 登录账号
-process.env.passWord = passWord; // 登录密码
+const emailConfig = config.email();
+const domain = config.get('domain');
+const userName = config.get('username');
+const passWord = config.get('password');
 
-const mailSender = makeMailSender(domain, emailTo, 'ikuuu自动签到');
+const mailSender = makeMailSender(emailConfig.user, emailConfig.pass, domain, emailConfig.to, 'ikuuu自动签到');
 
 async function main(): Promise<void> {
   try {
@@ -17,7 +16,7 @@ async function main(): Promise<void> {
       domain,
       userName,
       passWd: passWord,
-      emailTo,
+      emailTo: emailConfig.to,
     })
     console.log('runMachine Done\n', actor.getSnapshot())
   } catch (e) {

@@ -33,7 +33,8 @@ jobs:
           pnpm i
           pnpm run build
       - name: run script
-        run: node dist/hifini/index.js "${USER}" "${PASS}" "${TO}" "${HIFINI_COOKIE}" "${HIFINI_DOMAIN}"
+        run: npx puba run hifini --email-user "${USER}" --email-pass "${PASS}" --email-to "${TO}" --domain "${HIFINI_DOMAIN}" --cookie "${HIFINI_COOKIE}"
+        #run: node dist/hifini/index.js "${USER}" "${PASS}" "${TO}" "${HIFINI_COOKIE}" "${HIFINI_DOMAIN}"
         env:
           USER: ${{ secrets.USER }} # for email auth
           PASS: ${{ secrets.PASS }} # for email auth

@@ -1,6 +1,9 @@
 import { checkin } from './api.js';
 import sendMail from '../utils/sendMail.js';
 import { EmailOptions } from '../types/index.js';
+import config from '../utils/config.js';
+
+const emailConfig = config.email();
 
 const activityOptions = {
   activityId: 48,
@@ -9,15 +12,13 @@ const activityOptions = {
 };
 
 const emailOptions: EmailOptions = {
-  to: '281910378@qq.com',
+  user: emailConfig.user,
+  pass: emailConfig.pass,
   from: '95504',
+  to: emailConfig.to,
   subject: '',
   html: ''
 };
-
-const [user, pass] = process.argv.slice(2);
-process.env.user = user;
-process.env.pass = pass;
 
 async function sendMails(res: any, isSuccess: boolean): Promise<void> {
   const html = isSuccess 

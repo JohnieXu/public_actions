@@ -3,6 +3,8 @@ export interface EmailOptions {
   to: string;
   subject: string;
   html: string;
+  user: string;
+  pass: string;
 }
 
 export interface ApiResponse<T = any> {

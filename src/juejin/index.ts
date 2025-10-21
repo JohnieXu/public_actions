@@ -1,16 +1,15 @@
 import sendMail from '@@utils/sendMail.js';
 import * as api from './api.js';
 import { CheckinResult } from '@@types/index.js';
+import config from '@@utils/config.js';
 
-const [user, pass, to, ...cookies] = process.argv.slice(2);
-process.env.user = user;
-process.env.pass = pass;
+const emailConfig = config.email();
+const cookie = config.get('cookie');
+
 
 const scoreMap = new Map<string, number>();
 const resultMap = new Map<string, any>();
 const dipMap = new Map<string, string>();
-
-// ... 其他辅助函数保持不变，只需添加类型
 
 async function draw(cookie: string): Promise<void> {
   if (!cookie) return;
@@ -44,8 +43,6 @@ async function draw(cookie: string): Promise<void> {
   }
 }
 
-// ... 其他逻辑保持不变 
-
 function saveSuccessResult(cookie: string, detail: { msg: string; score: number }): void {
   if (cookie && detail) {
     resultMap.set(cookie, detail);
@@ -62,4 +59,4 @@ function saveFailReuslt(cookie: string, detail: { msg: string; score: number }):
     f.push(cookie);
     resultMap.set('_f', f);
   }
-} 
+}

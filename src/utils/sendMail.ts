@@ -22,26 +22,32 @@ export async function sendMail(data: EmailOptions): Promise<void> {
     port: 465,
     secure: true,
     auth: {
-      user: process.env.user,
-      pass: process.env.pass
+      user: data.user,
+      pass: data.pass
     }
   });
 
-  data.from = `"${data.from}" ${process.env.user}`;
+  data.from = `"${data.from}" ${data.user}`;
   await transporter.sendMail(data);
 }
 
 export class MailSender {
+  user: string;
+  pass: string;
   domain: string;
   to: string;
   subject: string;
-  constructor(domain: string, to: string, subject: string) {
+  constructor(user: string, pass: string, domain: string, to: string, subject: string) {
+    this.user = user;
+    this.pass = pass;
     this.domain = domain;
     this.to = to;
     this.subject = subject;
   }
   async send(content: string): Promise<void> {
     return sendMail({
+      user: this.user,
+      pass: this.pass,
       from: this.domain,
       to: this.to,
       subject: this.subject,
@@ -69,8 +75,8 @@ export class MailSender {
   }
 }
 
-export function makeMailSender(domain: string, to: string, subject: string) {
-  return new MailSender(domain, to, subject);
+export function makeMailSender(user: string, pass: string, domain: string, to: string, subject: string) {
+  return new MailSender(user, pass, domain, to, subject);
 }
 
 /**
