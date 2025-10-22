@@ -1,77 +1,149 @@
-## 定时任务脚本
+# Public Actions
 
-掘金自动签到 签到后会获得一次免费抽奖机会，自动触发免费抽奖。
-执行结束发送邮件通知签到结果。
+✨ A collection of automation scripts for daily tasks like check-ins, lucky draws, and more.
 
-使用方法：fork 本仓库
+[中文版本](README.zh-CN.md) | [English Version](README.md)
 
-打开浏览器，登陆掘金，F12 查看 Network 面板，复制 cookie
+## 🚀 Features
 
-打开 github 仓库的 Setting，选择 Secrets，新建下列 4 个仓库 Secret
+- **Multiple Platform Support**
+  - 95504
+  - [Juejin](https://juejin.cn/) - Daily check-in and lucky draw
+  - [HiFiNi](https://www.hifini.com/) - Forum daily check-in
+  - [IKuuu](https://ikuuu.eu/) - Daily check-in
+  - [Kengee](https://kengee.com/) - Daily check-in
+  - [Luckin Coffee Shop](https://www.luckincoffee.com/) - Daily check-in
 
-| key     | value                                           |
-| ------- | ----------------------------------------------- |
-| COOKIE  | 值为上面复制掘金的 cookie                       |
-| COOKIE1 | 值为上面复制掘金的 cookie（可选）               |
-| COOKIE2 | 值为上面复制掘金的 cookie（可选）               |
-| COOKIE3 | 值为上面复制掘金的 cookie（可选）               |
-| COOKIE4 | 值为上面复制掘金的 cookie（可选）               |
-| COOKIE5 | 值为上面复制掘金的 cookie（可选）               |
-| USER    | 发送邮件的邮箱地址，该邮箱需要开启 SMTP（可选） |
-| PASS    | 该邮箱的 SMTP 密码（可选）                      |
-| TO      | 接收邮件的邮箱（可选）                          |
+- **Email Notifications** - Get results via email
+- **Command Line Interface** - Easy to use and integrate
+- **Configurable** - Supports environment variables and command-line parameters
 
-### 特性
-- 支持多个账号配置（最多支持配置6个掘金账号）
-    依次配置 COOKIE COOKIE1 COOKIE2 COOKIE3 COOKIE4 COOKIE5 即可
-- 支持配置多个邮箱
-    TO 下配置多个收件邮件，使用英文逗号分隔，例如：`123@qq.com, 456@qq.com`
+## 📋 Prerequisites
 
-`注意：掘金的cookie大概有一个月的有效期，所以需要定期更新Secret`
+- Node.js >= 20.0.0
+- npm or pnpm
 
-## Node.js 要求
-
-需要使用 LTS 支持的 Node.js 版本，当前基于 `v20.11.1` 版本开发调试，低版本的 Node.js 未做测试。
-
-## 特别声明
-
-**1. 本仓库发布的脚本及其中涉及的任何解锁和解密分析脚本，仅用于测试和学习研究，禁止用于商业用途，不能保证其合法性，准确性，完整性和有效性，请根据情况自行判断。**
-
-**2. 本人对任何脚本问题概不负责，包括但不限于由任何脚本错误导致的任何损失或损害。**
-
-**3. 间接使用脚本的任何用户，建立 VPS 或在某些行为违反国家/地区法律或相关法规的情况下进行传播，本人对于由此引起的任何隐私泄漏或其他后果概不负责。**
-
-**4. 请勿将本仓库的任何内容用于商业或非法目的，否则后果自负。**
-
-**5. 如果任何单位或个人认为该项目的脚本可能涉嫌侵犯其权利，则应及时通知并提供身份证明、所有权证明，我们将在收到认证文件后删除相关脚本。**
-
-**6. 任何以任何方式查看此项目的人或直接或间接使用该项目的任何脚本的使用者都应仔细阅读此声明。本人保留随时更改或补充此免责声明的权利。一旦使用并复制了任何相关脚本或 Script 项目的规则，则视为您已接受此免责声明。**
-
-**7. 您必须在下载任何内容后的 24 小时内从您的存储设备中完全删除下载的内容。**
-
-**8. 您使用或者复制了本仓库和本人制作的任何脚本，则视为 `已接受` 此声明，请仔细阅读，谢谢！**
-
-**9. 本仓库脚本和打包的插件仅用于学习和测试，也请在完成之前，仔细阅读特别声明，完成后，删除脚本和插件，谢谢！**
-
-## run script
-
-`puba` is custom bin build in `bin` folder.
-
-sumarry:
-
-npx puba run <script> <args...>
-
-args:
-
-- common args
---email-user: <USER> email account, required
---email-pass: <PASS> email password, required
---email-to: <TO> email receiver, required
-- custom args
---domain: <DOMAIN> juejin domain
---username: <USERNAME> juejin username
---password: <PASSWORD> juejin password
+## 🚀 Installation
 
 ```bash
-npx puba run juejin <USER> <PASS> <TO> <DOMAIN> <USERNAME> <PASSWORD>
+# Install globally
+npm install -g public_actions
+
+# Or install locally
+npm install public_actions
 ```
+
+## 💻 Usage
+
+### List Available Actions
+
+```bash
+puba list
+puba list --details  # Show detailed information
+```
+
+### Run an Action
+
+```bash
+puba run <action> --email-user <USER> --email-pass <PASS> --email-to <TO> [options]
+```
+
+#### Common Options
+- `--email-user <USER>`: Email account (required)
+- `--email-pass <PASS>`: Email password (required)
+- `--email-to <TO>`: Email receiver (required)
+
+#### Action Specific Options
+
+- **juejin**: `--domain <DOMAIN>`, `--username <USERNAME>`, `--password <PASSWORD>`
+- **hifini**: `--domain <DOMAIN>`, `--cookie <COOKIE>`
+- **ikuuu**: `--username <USERNAME>`, `--password <PASSWORD>`
+- **kengee**: `--username <USERNAME>`, `--password <PASSWORD>`
+- **luckincoffeshop**: `--phone <PHONE>`, `--password <PASSWORD>`
+
+## ⚙️ Configuration
+
+You can configure the tool in three ways:
+
+1. **Command Line Arguments** - Pass options directly when running the command
+2. **Environment Variables** - Set variables with `PUBA_` prefix
+3. **JSON Configuration** - Set `PUBA_CONFIG` environment variable with JSON content
+
+## 🤖 Automatic Execution with GitHub Actions
+
+You can set up automatic scheduled execution of actions using GitHub Actions. Here's how:
+
+1. Fork this repository to your GitHub account
+2. Go to your repository's **Settings** > **Secrets and variables** > **Actions**
+3. Add the following secrets:
+   - `USER` - Email account for notifications
+   - `PASS` - Email password
+   - `TO` - Email receiver
+   - Action-specific secrets (e.g., `COOKIE` for Juejin, `DOMAIN` for HiFiNi)
+
+4. The workflows are already configured to run daily. You can adjust the schedule in the `.github/workflows/` directory by modifying the `cron` expression.
+
+Each action has its own workflow file (e.g., `juejin_helper.yml` for Juejin). The default schedule is set to run at 00:01 AM Beijing time (UTC 16:01).
+
+## 🧩 Extending with Your Own Actions
+
+To add your own automation script, follow these steps:
+
+1. Create a new directory under `src/` for your action (e.g., `src/myaction/`)
+2. Create the following files:
+   - `index.ts` - Main entry point for your action
+   - `api.ts` - API calls specific to your action
+3. In `index.ts`, implement your main logic and export a default function that accepts a config object
+4. Use `config.get('<param>')` to access configuration parameters
+5. Use `config.email()` to get email configuration
+6. Build the project with `pnpm run build`
+
+Example structure for `src/myaction/index.ts`:
+
+```typescript
+import * as api from './api.js';
+import config from '@@utils/config.js';
+
+const emailConfig = config.email();
+const myParam = config.get('myParam');
+
+// Your implementation here
+
+export default async function run(config: any) {
+  try {
+    // Your main logic
+    console.log('Running my custom action');
+    // Send email notification if needed
+  } catch (error) {
+    console.error('Error in my action:', error);
+  }
+}
+```
+
+## 🛠️ Development
+
+```bash
+# Clone the repository
+git clone https://github.com/JohnieXu/public_actions.git
+cd public_actions
+
+# Install dependencies
+pnpm install
+
+# Build the project
+pnpm run build
+
+# Run in development mode
+pnpm run dev
+
+# Test your custom action
+npx puba run myaction --email-user <USER> --email-pass <PASS> --email-to <TO> --my-param <VALUE>
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit issues and pull requests.
+
+## 📄 License
+
+[ISC](LICENSE)
