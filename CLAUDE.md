@@ -90,6 +90,49 @@ Complex actions use XState machines:
 - **Commitlint**: Uses conventional commits format
 - **Prettier**: single quotes, 100 char width, 2-space tabs, es5 trailing commas
 
+## Code Conventions
+
+### ESM (ES Module) Usage
+
+This project uses ES modules (`"type": "module"` in package.json). **Always use `import` instead of `require`**.
+
+**Do NOT use:**
+```javascript
+const { fn } = require('./module.js');
+const lib = require('lib');
+```
+
+**Do use:**
+```javascript
+import { fn } from './module.js';
+import { fn } from '@utils/module.js';
+```
+
+**For dynamic imports (rare):**
+```javascript
+const module = await import('./module.js');
+```
+
+**Why?** The project uses `"type": "module"` which disables CommonJS `require`. Using `require` causes `ReferenceError: require is not defined` at runtime.
+
+### Error Handling in XState Machines
+
+When using XState machines, always add error logging in `onError` handlers:
+
+```typescript
+"someState": {
+  invoke: { src: "doAction", input: ... },
+  onError: {
+    target: "done",
+    actions: (a) => {
+      console.error('Action failed:', a.event.error);
+    }
+  },
+}
+```
+
+This helps diagnose issues in GitHub Actions where errors might otherwise be silently swallowed.
+
 ### CLI Entry Point
 
 `bin/puba.js` dynamically discovers actions from `dist/` directory (excluding `common`, `types`, `utils`) and imports them as ES modules.
