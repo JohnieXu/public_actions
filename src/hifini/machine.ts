@@ -8,7 +8,7 @@ const doCheckin = fromPromise<string, {domain: string, cookie: string }>((a) => 
   cookie: a.input.cookie,
 }))
 
-const doSendEmail = emailActor("hifiki自动签到")
+const doSendEmail = emailActor("hifiki自动签到", "hifini")
 
 export const machine = setup({
   types: {

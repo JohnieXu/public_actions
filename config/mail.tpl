@@ -84,6 +84,42 @@
             max-width: 100%;
             overflow: hidden;
         }
+        .instructions-block {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .instructions-block h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 16px;
+            color: #856404;
+        }
+        .instructions-list {
+            margin: 0;
+            padding-left: 20px;
+            color: #856404;
+        }
+        .instructions-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .instructions-list li:last-child {
+            margin-bottom: 0;
+        }
+        .help-url {
+            margin-top: 12px;
+            margin-bottom: 0;
+        }
+        .help-url a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .help-url a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -98,6 +134,22 @@
         </div>
 
         <div class="json-preview">{{jsonData}}</div>
+
+        {{if instructions}}
+        <div class="instructions-block">
+            <h3>{{instructions.title}}</h3>
+            <ul class="instructions-list">
+                {{each instructions.items}}
+                <li>{{$value}}</li>
+                {{/each}}
+            </ul>
+            {{if instructions.helpUrl}}
+            <p class="help-url">
+                <a href="{{instructions.helpUrl}}" target="_blank">查看更多帮助信息 &rarr;</a>
+            </p>
+            {{/if}}
+        </div>
+        {{/if}}
 
         <div class="email-footer">
             <p>通知生成时间：{{createdAt}}</p>

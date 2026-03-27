@@ -18,4 +18,14 @@ export interface CheckinResult {
   type: string;
   result: number; // 0: success, 1: fail
   msg: string;
+}
+
+/**
+ * Action instructions for email notifications
+ */
+export interface ActionInstructions {
+  actionName: string;
+  failureInstructions: string[];
+  helpUrl?: string;
+  enabled: boolean;
 } 

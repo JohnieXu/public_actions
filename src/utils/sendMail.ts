@@ -14,6 +14,11 @@ export interface MailTplData {
   description: string
   jsonData: JsonString
   createdAt: string
+  instructions?: {
+    title: string;
+    items: string[];
+    helpUrl?: string;
+  }
 }
 
 export async function sendMail(data: EmailOptions): Promise<void> {
@@ -37,12 +42,21 @@ export class MailSender {
   domain: string;
   to: string;
   subject: string;
-  constructor(user: string, pass: string, domain: string, to: string, subject: string) {
+  actionName?: string;
+  constructor(
+    user: string,
+    pass: string,
+    domain: string,
+    to: string,
+    subject: string,
+    actionName?: string
+  ) {
     this.user = user;
     this.pass = pass;
     this.domain = domain;
     this.to = to;
     this.subject = subject;
+    this.actionName = actionName;
   }
   async send(content: string): Promise<void> {
     return sendMail({
@@ -64,6 +78,17 @@ export class MailSender {
     return template.compile(fs.readFileSync(path.join(cwd(), 'config/mail.tpl'), { encoding: 'utf-8' }))
   }
   private genRenderData(message: string, success: boolean): MailTplData {
+    let instructions: MailTplData['instructions'] | undefined;
+
+    // Only load instructions on failure
+    if (!success && this.actionName) {
+      const { getFailureInstructions, formatInstructions } = require('./instructions.js');
+      const actionConfig = getFailureInstructions(this.actionName);
+      if (actionConfig) {
+        instructions = formatInstructions(actionConfig);
+      }
+    }
+
     return {
       title: this.subject + '执行结果',
       _status: success ? 'success' : 'fail',
@@ -71,12 +96,20 @@ export class MailSender {
       description: this.subject,
       jsonData: message,
       createdAt: new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' }),
-    }
+      instructions,
+    };
   }
 }
 
-export function makeMailSender(user: string, pass: string, domain: string, to: string, subject: string) {
-  return new MailSender(user, pass, domain, to, subject);
+export function makeMailSender(
+  user: string,
+  pass: string,
+  domain: string,
+  to: string,
+  subject: string,
+  actionName?: string
+) {
+  return new MailSender(user, pass, domain, to, subject, actionName);
 }
 
 /**

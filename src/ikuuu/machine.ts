@@ -14,7 +14,7 @@ const doCheckin = fromPromise<string, {domain: string, cookie: string }>((a) => 
   cookie: a.input.cookie,
 }))
 
-const doSendEmail = emailActor("ikuuu自动签到")
+const doSendEmail = emailActor("ikuuu自动签到", "ikuuu")
 
 export const machine = setup({
   types: {
