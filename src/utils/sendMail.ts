@@ -69,13 +69,13 @@ export class MailSender {
     });
   }
   async sendSuccess(message: string): Promise<void> {
-    return this.send(this.genTplRenderer()(this.genRenderData(message, true)))
+    return this.send(this.genTplRenderer()(this.genRenderData(message, true)));
   }
   async sendFail(message: string): Promise<void> {
-    return this.send(this.genTplRenderer()(this.genRenderData(message, false)))
+    return this.send(this.genTplRenderer()(this.genRenderData(message, false)));
   }
   private genTplRenderer() {
-    return template.compile(fs.readFileSync(path.join(cwd(), 'config/mail.tpl'), { encoding: 'utf-8' }))
+    return template.compile(fs.readFileSync(path.join(cwd(), 'config/mail.tpl'), { encoding: 'utf-8' }));
   }
   private genRenderData(message: string, success: boolean): MailTplData {
     let instructions: MailTplData['instructions'] | undefined;
