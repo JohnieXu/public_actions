@@ -35,12 +35,13 @@ export function loadInstructionsConfig(): InstructionsConfig {
   const configPath = path.join(cwd(), 'config/email-instructions.json');
   try {
     const content = fs.readFileSync(configPath, { encoding: 'utf-8' });
-    configCache = JSON.parse(content);
+    const parsed = JSON.parse(content);
+    configCache = parsed;
+    return parsed;
   } catch {
     // Return empty config if file doesn't exist or fails to parse
-    configCache = { instructions: {} };
+    return { instructions: {} };
   }
-  return configCache;
 }
 
 /**
