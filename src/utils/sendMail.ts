@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import { EmailOptions } from '@@types/index.js';
 import path from 'node:path';
 import { cwd } from 'node:process';
+import { getFailureInstructions, formatInstructions } from './instructions.js';
 
 export type JsonString = string
 
@@ -82,7 +83,6 @@ export class MailSender {
 
     // Only load instructions on failure
     if (!success && this.actionName) {
-      const { getFailureInstructions, formatInstructions } = require('./instructions.js');
       const actionConfig = getFailureInstructions(this.actionName);
       if (actionConfig) {
         instructions = formatInstructions(actionConfig);
