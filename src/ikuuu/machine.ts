@@ -120,7 +120,12 @@ export const machine = setup({
           emailTo: a.context.emailTo,
         }),
         onDone: "done",
-        onError: "done",
+        onError: {
+          target: "done",
+          actions: (a) => {
+            console.error('Email sending failed:', a.event.error);
+          }
+        },
       },
     },
     "checkin error": {
@@ -134,7 +139,12 @@ export const machine = setup({
           emailTo: a.context.emailTo,
         }),
         onDone: "done",
-        onError: "done",
+        onError: {
+          target: "done",
+          actions: (a) => {
+            console.error('Email sending failed:', a.event.error);
+          }
+        },
       },
     },
     done: {
