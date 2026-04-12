@@ -37,21 +37,30 @@ jobs:
           pnpm i
           pnpm run build
       - name: run script
-        run: npx puba run ikuuu
+        run: |
+          npx puba run ikuuu \
+            --email-user "${EMAIL_USER}" \
+            --email-pass "${EMAIL_PASS}" \
+            --email-to "${EMAIL_TO}" \
+            --domain "${IKUUU_DOMAIN}" \
+            --auth-method "${AUTH_METHOD:-username_password}" \
+            --cookie "${IKUUU_COOKIE}" \
+            --username "${IKUUU_USERNAME}" \
+            --password "${IKUUU_PASSWORD}"
         env:
           # 邮箱配置
-          PUBA_EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          PUBA_EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-          PUBA_EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
 
           # ikuuu 配置
-          PUBA_DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
-          PUBA_IKUUU_AUTH_METHOD: ${{ secrets.IKUUU_AUTH_METHOD || 'username_password' }}
+          IKUUU_DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
+          AUTH_METHOD: ${{ secrets.IKUUU_AUTH_METHOD }}
 
           # 认证方式配置（二选一）
           # 用户名密码方式
-          PUBA_USERNAME: ${{ secrets.IKUUU_USERNAME }}
-          PUBA_PASSWORD: ${{ secrets.IKUUU_PASSWORD }}
+          IKUUU_USERNAME: ${{ secrets.IKUUU_USERNAME }}
+          IKUUU_PASSWORD: ${{ secrets.IKUUU_PASSWORD }}
 
-          # Token 方式（优先级更高）
-          PUBA_IKUUU_COOKIE: ${{ secrets.IKUUU_COOKIE }}
+          # Token 方式
+          IKUUU_COOKIE: ${{ secrets.IKUUU_COOKIE }}
