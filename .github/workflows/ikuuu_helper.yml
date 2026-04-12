@@ -37,12 +37,30 @@ jobs:
           pnpm i
           pnpm run build
       - name: run script
-        run: npx puba run ikuuu --email-user "${USER}" --email-pass "${PASS}" --email-to "${TO}" --domain "${DOMAIN}" --username "${USERNAME}" --password "${PASSWORD}"
-        #run: node dist/ikuuu/index.js "${USER}" "${PASS}" "${TO}" "${DOMAIN}" "${USERNAME}" "${PASSWORD}"
+        run: |
+          npx puba run ikuuu \
+            --email-user "${EMAIL_USER}" \
+            --email-pass "${EMAIL_PASS}" \
+            --email-to "${EMAIL_TO}" \
+            --domain "${IKUUU_DOMAIN}" \
+            --auth-method "${AUTH_METHOD:-username_password}" \
+            --cookie "${IKUUU_COOKIE}" \
+            --username "${IKUUU_USERNAME}" \
+            --password "${IKUUU_PASSWORD}"
         env:
-          USER: ${{ secrets.USER }} # for email auth
-          PASS: ${{ secrets.PASS }} # for email auth
-          TO: ${{ secrets.TO }}
-          DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
-          USERNAME: ${{ secrets.IKUUU_USERNAME }}
-          PASSWORD: ${{ secrets.IKUUU_PASSWORD }}
+          # 邮箱配置
+          EMAIL_USER: ${{ secrets.USER }}
+          EMAIL_PASS: ${{ secrets.PASS }}
+          EMAIL_TO: ${{ secrets.TO }}
+
+          # ikuuu 配置
+          IKUUU_DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
+          AUTH_METHOD: ${{ secrets.IKUUU_AUTH_METHOD }}
+
+          # 认证方式配置（二选一）
+          # 用户名密码方式
+          IKUUU_USERNAME: ${{ secrets.IKUUU_USERNAME }}
+          IKUUU_PASSWORD: ${{ secrets.IKUUU_PASSWORD }}
+
+          # Token 方式
+          IKUUU_COOKIE: ${{ secrets.IKUUU_COOKIE }}
