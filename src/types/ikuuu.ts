@@ -4,6 +4,11 @@ export interface LoginParams {
   passWd: string;
 }
 
+export interface TokenAuthParams {
+  domain: string;
+  cookie: string;
+}
+
 export interface CheckinParams {
   domain: string;
   cookie: string;
@@ -33,4 +38,9 @@ export interface BaseHeaders {
 export interface LoginResult {
   body: LoginResponse;
   cookie: string;
+}
+
+export enum AuthMethod {
+  USERNAME_PASSWORD = 'username_password',
+  TOKEN = 'token'
 } 

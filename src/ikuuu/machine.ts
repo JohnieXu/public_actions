@@ -9,6 +9,8 @@ const doLoginLogic = fromPromise<{ cookie: string }, {domain: string, userName: 
   passWd: a.input.passWd || ''
 }))
 
+// 注意：此机器仅供用户名密码认证方式使用
+
 const doCheckin = fromPromise<string, {domain: string, cookie: string }>((a) => api.checkin({
   domain: a.input.domain,
   cookie: a.input.cookie,

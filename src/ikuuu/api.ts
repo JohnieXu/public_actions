@@ -1,11 +1,12 @@
 import fetch from 'node-fetch';
-import { 
-  LoginParams, 
-  CheckinParams, 
-  LoginResponse, 
+import {
+  LoginParams,
+  TokenAuthParams,
+  CheckinParams,
+  LoginResponse,
   LoginResult,
   ApiResponse,
-  BaseHeaders 
+  BaseHeaders
 } from '@@types/ikuuu.js';
 
 /**
@@ -41,7 +42,7 @@ export function login({ domain, userName, passWd }: LoginParams): Promise<LoginR
     })
     .then(async (res) => {
       const cookieHeader = res.headers.get('set-cookie');
-      const cookies = cookieHeader ? 
+      const cookies = cookieHeader ?
         cookieHeader.split(',')
           .map((cookie: string) => cookie.trim())
           .filter((cookie: string) => cookie.length > 0)
@@ -55,9 +56,9 @@ export function login({ domain, userName, passWd }: LoginParams): Promise<LoginR
       console.log(body, cookies);
       if (body.ret === 1) {
         if (cookies && cookies.length > 0) {
-          resolve({ 
-            body, 
-            cookie: cookies.join('; ') 
+          resolve({
+            body,
+            cookie: cookies.join('; ')
           });
         } else {
           reject(new Error('接口返回成功，但获取 cookie 失败'));
@@ -110,4 +111,53 @@ export function checkin({ domain, cookie }: CheckinParams): Promise<string> {
     })
     .catch(reject);
   });
-} 
+}
+
+/**
+ * Token 方式直接签到
+ */
+export function tokenCheckin({ domain, cookie }: TokenAuthParams): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const baseHeaders: BaseHeaders = {
+      authority: domain,
+      referer: `https://${domain}/user`,
+      userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      origin: `https://${domain}`,
+      cookie
+    };
+
+    // 转换为 HeadersInit 类型
+    const headers = {
+      'authority': baseHeaders.authority,
+      'referer': baseHeaders.referer,
+      'user-agent': baseHeaders.userAgent,
+      'origin': baseHeaders.origin,
+      'cookie': baseHeaders.cookie,
+      'x-requested-with': 'XMLHttpRequest',
+      'accept': 'application/json, text/javascript, */*; q=0.01',
+      'accept-language': 'zh-CN,zh;q=0.9',
+      'sec-fetch-dest': 'empty',
+      'sec-fetch-mode': 'cors',
+      'sec-fetch-site': 'same-origin'
+    };
+
+    fetch(`https://${domain}/user/checkin`, {
+      headers: headers as HeadersInit,
+      method: 'POST',
+      body: ''
+    })
+    .then(async (res) => {
+      const body = await res.json() as ApiResponse;
+      return body;
+    })
+    .then((res: ApiResponse) => {
+      console.log(res);
+      if (res.ret === 1) {
+        resolve(res.msg || '签到成功');
+      } else {
+        reject(new Error(res.msg || JSON.stringify(res)));
+      }
+    })
+    .catch(reject);
+  });
+}
