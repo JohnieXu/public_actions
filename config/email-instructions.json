@@ -1,0 +1,59 @@
+{
+  "instructions": {
+    "ikuuu": {
+      "actionName": "ikuuu",
+      "failureInstructions": [
+        "登录失败可能原因：",
+        "1. 用户名或密码错误，请检查GitHub Secrets配置",
+        "2. 账户已被禁用或限制",
+        "3. 网络连接问题",
+        "解决方法：访问网站重新登录确认账户状态"
+      ],
+      "helpUrl": "https://ikuuu.pw",
+      "enabled": true
+    },
+    "hifini": {
+      "actionName": "hifini",
+      "failureInstructions": [
+        "签到失败可能原因：",
+        "1. Cookie 已过期，请重新获取并更新到GitHub Secrets",
+        "2. 网络连接问题",
+        "3. 网站服务器维护中"
+      ],
+      "helpUrl": "https://hifiki.com",
+      "enabled": true
+    },
+    "juejin": {
+      "actionName": "juejin",
+      "failureInstructions": [
+        "签到失败可能原因：",
+        "1. Cookie 或密码配置错误",
+        "2. 账户被限制",
+        "3. 网络问题"
+      ],
+      "helpUrl": "https://juejin.cn",
+      "enabled": true
+    },
+    "kengee": {
+      "actionName": "kengee",
+      "failureInstructions": [
+        "签到失败可能原因：",
+        "1. 用户名或密码错误",
+        "2. 账户状态异常"
+      ],
+      "helpUrl": "https://kengee.com",
+      "enabled": true
+    },
+    "luckincoffeshop": {
+      "actionName": "luckincoffeshop",
+      "failureInstructions": [
+        "签到失败可能原因：",
+        "1. 手机号或密码错误",
+        "2. 账户状态异常",
+        "3. 需要手机验证码"
+      ],
+      "helpUrl": "https://www.luckincoffee.com",
+      "enabled": true
+    }
+  }
+}

@@ -7,10 +7,26 @@ const emailConfig = config.email();
 /**
  * Send email by invoking xstate actor
  * @param subject the email subject
- * @returns 
+ * @param actionName action name for loading instructions (optional)
+ * @returns
  */
-export const emailActor = (subject: string) => fromPromise<any, { type: "success" | "error", domain: string, emailTo: string, data: any }>(({ input }) => {
-  const mailSender = makeMailSender(emailConfig.user, emailConfig.pass, input.domain, input.emailTo, subject)
+export const emailActor = (
+  subject: string,
+  actionName?: string
+) => fromPromise<any, {
+  type: "success" | "error",
+  domain: string,
+  emailTo: string,
+  data: any
+}>(({ input }) => {
+  const mailSender = makeMailSender(
+    emailConfig.user,
+    emailConfig.pass,
+    input.domain,
+    input.emailTo,
+    subject,
+    actionName
+  )
   const toString = (data: any) => {
     if (typeof data === 'string') return data
     if (data instanceof Error) return data.message
