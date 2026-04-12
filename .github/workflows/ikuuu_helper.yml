@@ -49,9 +49,9 @@ jobs:
             --password "${IKUUU_PASSWORD}"
         env:
           # 邮箱配置
-          EMAIL_USER: ${{ secrets.EMAIL_USER }}
-          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_USER: ${{ secrets.USER }}
+          EMAIL_PASS: ${{ secrets.PASS }}
+          EMAIL_TO: ${{ secrets.TO }}
 
           # ikuuu 配置
           IKUUU_DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
