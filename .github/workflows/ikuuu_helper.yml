@@ -38,7 +38,7 @@ jobs:
           pnpm run build
       - name: run script
         run: |
-          npx puba run ikuuu \
+          node bin/puba.js run ikuuu \
             --email-user "${EMAIL_USER}" \
             --email-pass "${EMAIL_PASS}" \
             --email-to "${EMAIL_TO}" \
