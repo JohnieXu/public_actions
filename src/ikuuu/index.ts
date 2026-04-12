@@ -6,7 +6,7 @@ import config from '@@utils/config.js';
 
 const emailConfig = config.email();
 const domain = config.get('domain');
-const authMethod = config.get('authMethod') || 'username_password'; // 默认使用用户名密码方式
+const authMethod = config.get('ikuuuAuthMethod') || 'username_password'; // 默认使用用户名密码方式
 
 // 优先级：Token方式 > 用户名密码方式
 // 当使用Token方式时，只需要配置domain和cookie

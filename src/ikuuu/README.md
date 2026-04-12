@@ -67,14 +67,14 @@ PUBA_EMAIL_TO=receive_email@qq.com
 
 ## 切换认证方式
 
-通过设置 `PUBA_AUTH_METHOD` 环境变量来选择认证方式：
+通过设置 `PUBA_IKUUU_AUTH_METHOD` 环境变量来选择认证方式：
 
 ```bash
 # 使用 Token 认证（推荐）
-PUBA_AUTH_METHOD=token
+PUBA_IKUUU_AUTH_METHOD=token
 
 # 使用用户名密码认证（默认）
-PUBA_AUTH_METHOD=username_password
+PUBA_IKUUU_AUTH_METHOD=username_password
 ```
 
 ## 注意事项

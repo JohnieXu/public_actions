@@ -46,7 +46,7 @@ jobs:
 
           # ikuuu 配置
           PUBA_DOMAIN: ${{ secrets.IKUUU_DOMAIN }}
-          PUBA_AUTH_METHOD: ${{ secrets.IKUUU_AUTH_METHOD || 'username_password' }}
+          PUBA_IKUUU_AUTH_METHOD: ${{ secrets.IKUUU_AUTH_METHOD || 'username_password' }}
 
           # 认证方式配置（二选一）
           # 用户名密码方式
